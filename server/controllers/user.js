@@ -1,7 +1,7 @@
 const User = require('../model/user')
 const bcrypt = require('bcrypt')
 
-module.exports.register = async(req, res, next) => {
+const register = async(req, res, next) => {
 
 try{
     console.log('hello', req.body)
@@ -30,4 +30,27 @@ catch(err){
     console.log('error at register controller :', err)
 }
 }
+
+
+const login = async(req, res, next) => {
+    try{
+        console.log('LOGIN ', req.body)
+        const {username, password} = req.body
+        const user = await User.findOne({username})
+        if (!user){
+            return res.json({msg: "incorrect username or password", status:false})
+        }
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+        if (!isPasswordValid){
+            return res.json({msg: "incorrect username or password", status:false})
+        }
+        delete user.password
+        return res.json({status:true, user})
+    }
+    catch(err){
+        console.log('error at login controller :', err)
+    }
+    }
+
+module.exports ={register, login}
 

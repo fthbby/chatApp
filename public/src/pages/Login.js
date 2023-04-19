@@ -20,6 +20,12 @@ function Login() {
     console.log("VALUES :", values);
   }, [values]);
 
+  useEffect(()=>{
+    if (localStorage.getItem('chat-app-user')){
+      navigate('/')
+    }
+  },[])
+
   const toastStyle = {
     position: "bottom-right",
     autoClose: 8000,

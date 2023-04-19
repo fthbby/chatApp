@@ -26,21 +26,23 @@ export default function Chat() {
       console.log("no logged in user");
       navigate("/login");
     } else {
-      console.log("we have a logged in user!");
       setCurrentUser(await JSON.parse(localStorage.getItem("chat-app-user")));
+      console.log('current loged in user:', currentUser)
     }
   };
 
   useEffect(() => {
     checkLoggedInUser();
-    getAllContacts();
   }, []);
 
+  useEffect(()=>{
+    getAllContacts();
+  },[currentUser])
   return (
     <>
       <Container>
         <div className="container">
-          <Contacts contacts={contacts}/>
+          <Contacts contacts={contacts} currentUser={currentUser}/>
         </div>
       </Container>
     </>

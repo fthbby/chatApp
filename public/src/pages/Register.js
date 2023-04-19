@@ -1,15 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Logo from "../assets/TeamsLogo.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert("form");
+  const [values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  useEffect(() => {
+    console.log("VALUES :", values);
+  }, [values]);
+
+  const toastStyle = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    theme: "light",
   };
 
-  const handleChange = (e) => {};
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleValidation();
+  };
+
+  const handleValidation = () => {
+    const { password, confirmPassword, username, email } = values;
+    if (password !== confirmPassword) {
+      toast.error("PW & CF should be da same", toastStyle);
+      return false;
+    } else if (username.length < 3) {
+      toast.error("Username shoudl be longer than 3 characters", toastStyle);
+      return false;
+    } else if (password.length < 5) {
+      toast.error("password shoudl be longer than 5 characters", toastStyle);
+      return false;
+    } else if (email === "") {
+      toast.error("email can't be blank", toastStyle);
+    }
+    return true;
+  };
+
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
   return (
     <>
       <FormContainer>
@@ -29,7 +68,7 @@ function Register() {
           <input
             type="email"
             placeholder="Email"
-            name="Email"
+            name="email"
             onChange={(e) => handleChange(e)}
           />
 
@@ -47,13 +86,14 @@ function Register() {
             onChange={(e) => handleChange(e)}
           />
 
-          <button type="submit">Create user</button>
+          <button type="submit">Create User</button>
 
           <span>
             Already have an account ?? <Link to="/login">Login</Link>
           </span>
         </form>
       </FormContainer>
+      <ToastContainer />
     </>
   );
 }
@@ -106,19 +146,18 @@ const FormContainer = styled.div`
       font-weight: 600;
       color: white;
       transition: 0.5s ease-in-out;
-      &: hover{
-        background-color:black;
+      &: hover {
+        background-color: black;
       }
     }
-    span{
-        color:black;
-        text-transform:uppercase;
-        a {
-            color:#5558ae;
-            text-decoration:none;
-            font-weight:bold
-            
-        }
+    span {
+      color: black;
+      text-transform: uppercase;
+      a {
+        color: #5558ae;
+        text-decoration: none;
+        font-weight: bold;
+      }
     }
   }
 `;

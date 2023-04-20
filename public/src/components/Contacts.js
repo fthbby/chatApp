@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import TeamsLogo from "../assets/TeamsLogo.png";
 import avatar from "../assets/avatar.jpg";
-export default function Contacts({ contacts, currentUser }) {
+export default function Contacts({ contacts, currentUser, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
@@ -13,7 +13,11 @@ export default function Contacts({ contacts, currentUser }) {
     }
   }, [currentUser]);
 
-  const changeCurrentChat = (index, contact) => {};
+  const changeCurrentChat = (index, contact) => {
+    setCurrentSelected(index);
+    changeChat(contact);
+    console.log(index, contact);
+  };
 
   console.log("contacts :", contacts);
   return (
@@ -27,10 +31,11 @@ export default function Contacts({ contacts, currentUser }) {
           <div className="contacts">
             {contacts.map((contact, index) => (
               <div
+                key={contact._id}
                 className={`contact ${
                   index === currentSelected ? "selected" : ""
                 }`}
-                key={index}
+                onClick={() => changeCurrentChat(index, contact)}
               >
                 <div className="avatar">
                   <img src={avatar} />
@@ -42,23 +47,7 @@ export default function Contacts({ contacts, currentUser }) {
               </div>
             ))}
 
-            {contacts.map((contact, index) => (
-              <div
-                className={`contact ${
-                  index === currentSelected ? "selected" : ""
-                }`}
-                key={index}
-              >
-                <div className="avatar">
-                  <img src={avatar} />
-                </div>
-
-                <div className="username">
-                  <h3>{contact.username}</h3>
-                </div>
-              </div>
-            ))}    
-            
+          
           </div>
           <div className="current-user">
             <div className="avatar">
@@ -84,6 +73,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    height: 5rem;
   }
   img {
     height: 2rem;
@@ -102,7 +92,7 @@ const Container = styled.div`
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
-        background-color: #ffffff39;
+        background-color: #5558ae;
         width: 0.1rem;
         border-radius: 1rem;
       }
@@ -121,8 +111,7 @@ const Container = styled.div`
       .avatar {
         img {
           height: 3rem;
-          border-radius:50%
-
+          border-radius: 50%;
         }
       }
     }
@@ -139,17 +128,17 @@ const Container = styled.div`
   }
 
   .current-user {
-    ${'' /* background-color: orange; */}
+    ${"" /* background-color: orange; */}
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    margin:1rem;
+    margin: 1rem;
     .avatar {
       img {
         height: 4rem;
         max-inline-size: 100%;
-        border-radius:50%
+        border-radius: 50%;
       }
     }
     .username {

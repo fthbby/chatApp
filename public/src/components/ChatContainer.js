@@ -3,23 +3,41 @@ import avatar from "../assets/avatar.jpg";
 import Logout from "./Logout";
 import ChatInput from "./ChatInput";
 import Messages from "./Messages";
-import axios from 'axios'
-import { sendMessageRoute } from "../api/routes";
+import axios from "axios";
+import { getAllMessageRoute, sendMessageRoute } from "../api/routes";
+import { useState, useEffect } from "react";
 
 export default function ChatContainer({ currentChat, currentUser }) {
+  const [messages, setMessages] = useState([]);
+
   const handleSendMessage = async (message) => {
-    try{
-        let res = await axios.post(sendMessageRoute, {
-            from: currentUser._id,
-            to: currentChat._id,
-            message: message,
-        })
+    try {
+      let res = await axios.post(sendMessageRoute, {
+        from: currentUser._id,
+        to: currentChat._id,
+        message: message,
+      });
+      console.log('send res :', res)
+    } catch (err) {
+      console.log(err);
     }
- 
-catch(err){
-    console.log(err)
-}
   };
+
+  const getAllMessages = async () => {
+    let res = await axios.post(getAllMessageRoute, {
+      from: currentUser._id,
+      to: currentChat._id,
+    });
+
+    setMessages(res.data);
+    console.log("dataaa :", res.data);
+  };
+
+  useEffect(() => {
+    if (currentChat) {
+      getAllMessages();
+    }
+  }, [currentChat]);
 
   return (
     <>
@@ -36,7 +54,21 @@ catch(err){
           <Logout />
         </div>
         <div className="chat-messages">
-          <Messages />
+          {messages.map((message, index) => {
+            return (
+              <div key={index}>
+                <div
+                  className={`message ${
+                    message.fromSelf ? "sended" : "received"
+                  }`}
+                >
+                  <div className="content">
+                    <p>{message.message}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
         <ChatInput handleSendMessage={handleSendMessage} />
       </Container>
@@ -105,7 +137,7 @@ const Container = styled.div`
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: #4f04ff21;
+        background-color: purple;
       }
     }
     .received {

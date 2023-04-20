@@ -5,7 +5,7 @@ import Logo from "../assets/TeamsLogo.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios'
-import { loginRoute } from "../utils/routes";
+import { loginRoute } from "../api/routes";
 
 
 function Login() {

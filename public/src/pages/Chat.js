@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { allUsersRoute } from "../utils/routes";
+import { allUsersRoute } from "../api/routes";
 import { useNavigate } from "react-router-dom";
 import Welcome from "../components/Welcome";
 import Contacts from "../components/Contacts";
@@ -60,7 +60,9 @@ export default function Chat() {
           {isLoaded && currentChat === undefined ? (
             <Welcome currentUser={currentUser} />
           ) : (
-            <ChatContainer currentChat={currentChat} />
+            <ChatContainer currentChat={currentChat}
+            currentUser={currentUser}
+             />
           )}
         </div>
       </Container>

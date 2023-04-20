@@ -3,8 +3,23 @@ import avatar from "../assets/avatar.jpg";
 import Logout from "./Logout";
 import ChatInput from "./ChatInput";
 import Messages from "./Messages";
-export default function ChatContainer({ currentChat }) {
-  const handleSendMessage = async (message) => {};
+import axios from 'axios'
+import { sendMessageRoute } from "../api/routes";
+
+export default function ChatContainer({ currentChat, currentUser }) {
+  const handleSendMessage = async (message) => {
+    try{
+        let res = await axios.post(sendMessageRoute, {
+            from: currentUser._id,
+            to: currentChat._id,
+            message: message,
+        })
+    }
+ 
+catch(err){
+    console.log(err)
+}
+  };
 
   return (
     <>

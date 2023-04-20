@@ -5,7 +5,7 @@ import Logo from "../assets/TeamsLogo.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { registerRoute, setAvatarRoute } from "../utils/routes";
+import { registerRoute, setAvatarRoute } from "../api/routes";
 import loader from "../assets/loader.gif";
 import { Buffer } from "buffer";
 

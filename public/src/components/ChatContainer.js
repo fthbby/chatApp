@@ -2,7 +2,6 @@ import styled from "styled-components";
 import avatar from "../assets/avatar.jpg";
 import Logout from "./Logout";
 import ChatInput from "./ChatInput";
-import Messages from "./Messages";
 import axios from "axios";
 import { getAllMessageRoute, sendMessageRoute } from "../api/routes";
 import { useState, useEffect, useRef } from "react";
@@ -12,21 +11,24 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
   const scrollRef = useRef();
-  const handleSendMessage = async (message) => {
+
+  const handleSendMessage = async (msg) => {
     try {
       let res = await axios.post(sendMessageRoute, {
         from: currentUser._id,
         to: currentChat._id,
-        message: message,
+        message: msg,
       });
+      console.log("res :", res);
       socket.current.emit("send-msg", {
         to: currentChat._id,
         from: currentUser._id,
-        message: message,
+        msg,
       });
+      console.log("socket", socket);
 
       const msgs = [...messages];
-      msgs.push({ fromSelf: true, message: message });
+      msgs.push({ fromSelf: true, message: msg });
       setMessages(msgs);
       console.log("send res :", res);
     } catch (err) {
@@ -51,13 +53,15 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
   }, [messages]);
 
   const getAllMessages = async () => {
-    let res = await axios.post(getAllMessageRoute, {
-      from: currentUser._id,
-      to: currentChat._id,
-    });
+    if (currentChat) {
+      let res = await axios.post(getAllMessageRoute, {
+        from: currentUser._id,
+        to: currentChat._id,
+      });
 
-    setMessages(res.data);
-    console.log("dataaa :", res.data);
+      setMessages(res.data);
+      console.log("dataaa :", res.data);
+    }
   };
 
   useEffect(() => {

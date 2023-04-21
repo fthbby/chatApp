@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Welcome from "../components/Welcome";
 import Contacts from "../components/Contacts";
 import ChatContainer from "../components/ChatContainer";
-import {io} from 'socket.io-client'
+import { io } from "socket.io-client";
 
 export default function Chat() {
   const socket = useRef();
@@ -37,12 +37,12 @@ export default function Chat() {
     }
   };
 
-useEffect(()=>{
-  if(currentUser){
-    socket.current = io(host);
-    socket.current.emit("add-user", currentUser._id);
-  }
-},[])
+  useEffect(() => {
+    if (currentUser) {
+      socket.current = io(host);
+      socket.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     checkLoggedInUser();
@@ -68,10 +68,11 @@ useEffect(()=>{
           {isLoaded && currentChat === undefined ? (
             <Welcome currentUser={currentUser} />
           ) : (
-            <ChatContainer currentChat={currentChat}
-            currentUser={currentUser}
-            socket={socket}
-             />
+            <ChatContainer
+              currentChat={currentChat}
+              currentUser={currentUser}
+              socket={socket}
+            />
           )}
         </div>
       </Container>

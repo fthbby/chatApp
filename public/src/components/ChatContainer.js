@@ -5,11 +5,13 @@ import ChatInput from "./ChatInput";
 import Messages from "./Messages";
 import axios from "axios";
 import { getAllMessageRoute, sendMessageRoute } from "../api/routes";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export default function ChatContainer({ currentChat, currentUser }) {
+export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
+  const [arrivalMessage, setArrivalMessage] = useState(null);
 
+  const scrollRef = useRef();
   const handleSendMessage = async (message) => {
     try {
       let res = await axios.post(sendMessageRoute, {
@@ -17,11 +19,36 @@ export default function ChatContainer({ currentChat, currentUser }) {
         to: currentChat._id,
         message: message,
       });
-      console.log('send res :', res)
+      socket.current.emit("send-msg", {
+        to: currentChat._id,
+        from: currentUser._id,
+        message: message,
+      });
+
+      const msgs = [...messages];
+      msgs.push({ fromSelf: true, message: message });
+      setMessages(msgs);
+      console.log("send res :", res);
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (socket.current) {
+      socket.current.on("msg-receive", (msg) => {
+        setArrivalMessage({ fromSelf: false, message: msg });
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const getAllMessages = async () => {
     let res = await axios.post(getAllMessageRoute, {
@@ -143,7 +170,7 @@ const Container = styled.div`
     .received {
       justify-content: flex-start;
       .content {
-        background-color: #9900ff20;
+        background-color: grey;
       }
     }
   }

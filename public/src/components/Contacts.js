@@ -24,10 +24,10 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
     <>
       {currentUserName && (
         <Container>
-          <div className="brand">
+          {/* <div className="brand">
             <img src={TeamsLogo} alt="logo" />
             <h3>TeamsClone</h3>
-          </div>
+          </div> */}
           <div className="contacts">
             {contacts.map((contact, index) => (
               <div

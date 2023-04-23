@@ -75,7 +75,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
     <>
       <Container>
         <div className="chat-header">
-          <div className="user-details">
+        {/* <div className="user-details">
             <div className="avatar">
               <img src={avatar} alt="" />
             </div>
@@ -83,7 +83,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
               <h3>{currentChat?.username}</h3>
             </div>
           </div>
-          <Logout />
+          <Logout /> */}
         </div>
         <div className="chat-messages">
           {messages.map((message, index) => {
@@ -110,11 +110,11 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 10% 80% 10%;
+  grid-template-rows: 0% 90% 10%;
   gap: 0.1rem;
   overflow: hidden;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
-    grid-template-rows: 15% 70% 15%;
+    grid-template-rows: 0% 85% 15%;
   }
   .chat-header {
     display: flex;

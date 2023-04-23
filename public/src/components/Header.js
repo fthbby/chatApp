@@ -3,25 +3,31 @@ import Logout from "./Logout";
 import avatar from "../assets/avatar.jpg";
 import TeamsLogo from "../assets/TeamsLogo.png";
 import {
-  Button,
-  Menu,
-  MenuItem,
+  Autocomplete,
   Input,
-  TextField,
   InputAdornment,
-  InputBase,
+  TextField,
+  Box,
 } from "@mui/material/";
 import ProfileDropDown from "../components/ProfileDropDown";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
-import { useEffect } from "react";
-export default function Header({ currentChat, currentUser }) {
+export default function Header({ currentChat, currentUser, contacts }) {
   const [focus, setFocus] = useState(false);
 
-//   useEffect(() => {
-//     console.log("focus :", focus);
-//   }, [focus, Input]);
+  console.log("contacts :", contacts);
+
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  // Assuming 'contacts' is an array of options for autocomplete
+
+
+  const handleChange = (event, value) => {
+    setSelectedValue(value);
+  };
+
+
   return (
     <Container>
       <div className="chat-header">
@@ -30,10 +36,7 @@ export default function Header({ currentChat, currentUser }) {
             <img src={TeamsLogo} alt="logo" />
             <h4>TeamsClone</h4>
           </div>
-
-          {/* <div className="username">
-            <h3>{currentChat?.username}</h3>
-          </div> */}
+    
         </div>
         <Input
           onFocus={() => setFocus(true)}
@@ -48,6 +51,61 @@ export default function Header({ currentChat, currentUser }) {
           }
         />
 
+        {/* <Autocomplete
+          options={contacts}
+          getOptionLabel={(option) => option.username}
+          renderInput={(params) => (
+            <TextField
+         
+              {...params}
+                onFocus={() => setFocus(true)}
+                onBlur={() => setFocus(false)}
+              disableUnderline
+                placeholder={focus ? "Search for people and chats" : "Search"}
+              className={focus ? "focusInput" : "input"}
+              startAdornment={
+                <InputAdornment position="start">
+                  {!focus && <SearchIcon />}
+                </InputAdornment>
+              }
+
+            />
+          )}
+        /> */}
+
+        {/* <Autocomplete
+        options={contacts}
+        getOptionLabel={(option) => option.username}
+        getOptionSelected={(option, value) => option._id === value._id}
+
+        value={selectedValue}
+        onChange={handleChange}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label={focus ? 'Search for people and chats' : 'Search'}
+            variant="outlined"
+            // fullWidth
+            InputLabelProps={{
+              shrink: true,
+              style: {
+                fontWeight: 'bold',
+              },
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {!focus && <SearchIcon />}
+                </InputAdornment>
+              ),
+              classes: {
+                root: focus ? 'focusInput' : 'input',
+              },
+              disableUnderline: true,
+            }}
+          />
+        )}
+      /> */}
         <div className="avatar">
           <ProfileDropDown currentUser={currentUser} />
         </div>

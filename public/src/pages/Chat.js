@@ -63,6 +63,8 @@ export default function Chat() {
         <div className="container">
           <Header currentChat={currentChat} 
             currentUser={currentUser}
+            contacts={contacts}
+
           />
           <div className="contactsandchat">
             <Contacts

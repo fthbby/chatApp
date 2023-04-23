@@ -5,6 +5,7 @@ import ChatInput from "./ChatInput";
 import axios from "axios";
 import { getAllMessageRoute, sendMessageRoute } from "../api/routes";
 import { useState, useEffect, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
@@ -87,7 +88,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
         <div className="chat-messages">
           {messages.map((message, index) => {
             return (
-              <div key={index}>
+              <div ref={scrollRef} key={uuidv4}>
                 <div
                   className={`message ${
                     message.fromSelf ? "sended" : "received"
@@ -142,10 +143,11 @@ const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
+
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
-        background-color: #ffffff39;
+        background-color: red;
         width: 0.1rem;
         border-radius: 1rem;
       }

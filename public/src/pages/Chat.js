@@ -64,7 +64,6 @@ export default function Chat() {
           <Header currentChat={currentChat} 
             currentUser={currentUser}
           />
-
           <div className="contactsandchat">
             <Contacts
               contacts={contacts}

@@ -7,6 +7,7 @@ import Welcome from "../components/Welcome";
 import Contacts from "../components/Contacts";
 import ChatContainer from "../components/ChatContainer";
 import { io } from "socket.io-client";
+import Header from "../components/Header";
 
 export default function Chat() {
   const socket = useRef();
@@ -59,28 +60,28 @@ export default function Chat() {
   return (
     <>
       <Container>
-      
-      
         <div className="container">
-          <Contacts
-            contacts={contacts}
+          <Header currentChat={currentChat} 
             currentUser={currentUser}
-            changeChat={handleChatChange}
           />
-          
 
-
-          {isLoaded && currentChat === undefined ? (
-            <Welcome currentUser={currentUser} />
-          ) : (
-            <ChatContainer
-              currentChat={currentChat}
+          <div className="contactsandchat">
+            <Contacts
+              contacts={contacts}
               currentUser={currentUser}
-              socket={socket}
+              changeChat={handleChatChange}
             />
-          )}
 
-
+            {isLoaded && currentChat === undefined ? (
+              <Welcome currentUser={currentUser} />
+            ) : (
+              <ChatContainer
+                currentChat={currentChat}
+                currentUser={currentUser}
+                socket={socket}
+              />
+            )}
+          </div>
         </div>
       </Container>
     </>
@@ -88,25 +89,29 @@ export default function Chat() {
 }
 
 const Container = styled.div`
-height: 100vh;
-weight: 100vw;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 1rem;
-background-color: #5558ae;
-.container {
-height: 85vh;
-width: 85vh;
-display:grid;
-background-color:white;
-grid-template-columns: 30% 70%;
-}
-@media screen and (min-width: 720px) and (max-width: 1080px) {
-      grid-template-columns: 35% 65%;
-    }
+  height: 100vh;
+  weight: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  ${'' /* background-color: #5558ae; */}
+  background-color:grey;
+  .container {
+    ${'' /* height: 85vh; */}
+    ${'' /* width: 85vh; */}
+    background-color:white;
+  }
 
+  .contactsandchat {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    height: 85vh;
+    width: 85vh;
 
-`
-;
+  }
+  @media screen and (min-width: 720px) and (max-width: 1080px) {
+    grid-template-columns: 35% 65%;
+  }
+`;

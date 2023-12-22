@@ -4,8 +4,15 @@ import { IoMdSend } from "react-icons/io";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
+import {
+  Autocomplete,
+  Input,
+  InputAdornment,
+  TextField,
+  Box,
+} from "@mui/material/";
 
-export default function ChatInput({handleSendMessage}) {
+export default function ChatInput({ handleSendMessage }) {
   const [showEmoji, setShowEmoji] = useState(false);
   const [msg, setMsg] = useState("");
 
@@ -14,55 +21,74 @@ export default function ChatInput({handleSendMessage}) {
   };
 
   const handleEmojiClick = (event, emoji) => {
-    console.log(emoji)
+    console.log(emoji);
     let message = msg;
     message += emoji.emoji;
     setMsg(message);
   };
 
-
-  const sendChat = (event)=>{
-    event.preventDefault()
-    if (msg.length > 0){
-        handleSendMessage(msg)
-        setMsg('')
+  const sendChat = (event) => {
+    event.preventDefault();
+    if (msg.length > 0) {
+      handleSendMessage(msg);
+      setMsg("");
     }
-  }
+  };
   return (
-    <Container>
-      <div className="button-container">
-        <div className="emoji">
+    <Box
+      display={"grid"}
+      alignItems={"center"}
+      backgroundColor="#F5F5F5"
+      padding={"0 1rem"}
+    >
+      {/* <div className="button-container"> */}
+      {/* <div className="emoji">
           <BsEmojiSmileFill onClick={handleEmojiPicker} />
           {showEmoji && <Picker onEmojiClick={handleEmojiClick} />}
-        </div>
-      </div>
-      <form className="input-container" onSubmit={(e)=>sendChat(e)}>
-        <input
+        </div> */}
+      {/* </div> */}
+      <form className="input-container" onSubmit={(e) => sendChat(e)}>
+        <Input
+          style={{
+            width: "100%",
+            background: "white",
+            padding: 5,
+            borderRadius: 5,
+            border: "1.5px solid #E0E0E0",
+          }}
+          disableUnderline
           type="text"
-          placeholder="Type your message here"
+          placeholder="Type a message"
           value={msg}
           onChange={(e) => setMsg(e.target.value)}
         />
-
-        <button className="submit">
-          <IoMdSend />
-        </button>
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          {/* <button className="submit"> */}
+          <IoMdSend fontSize={30} onClick={sendChat} />
+          {/* </button> */}
+        </Box>
       </form>
-    </Container>
+    </Box>
   );
 }
 
 const Container = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: 5% 95%;
+  ${"" /* grid-template-columns: 5% 95%; */}
   background-color: lightgrey;
   padding: 0 2rem;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     padding: 0 1rem;
     gap: 1rem;
   }
-  .button-container {
+  ${
+    "" /* .button-container {
     display: flex;
     align-items: center;
     color: white;
@@ -77,8 +103,9 @@ const Container = styled.div`
       .emoji-picker-react {
         position: absolute;
         top: -350px;
-        ${'' /* background-color: #080420; */}
-        ${'' /* box-shadow: 0 5px 10px #9a86f3; */}
+        ${"" /* background-color: #080420; */
+  }
+        ${"" /* box-shadow: 0 5px 10px #9a86f3; */}
         border-color: #9a86f3;
         .emoji-scroll-wrapper::-webkit-scrollbar {
           background-color: #080420;
@@ -101,19 +128,19 @@ const Container = styled.div`
         }
       }
     }
-  }
+  } */}
   .input-container {
     width: 100%;
     border-radius: 2rem;
-    display: flex;
-    align-items: center;
+    ${"" /* display: flex; */}
+    ${"" /* align-items: center; */}
     gap: 2rem;
-    background-color: white;
+    ${"" /* background-color: white; */}
     input {
-      width: 90%;
+      ${"" /* width: 90%; */}
       height: 60%;
-      background-color: transparent;
-      color: red;
+      background-color: 'transparent';
+      color: black;
       border: none;
       padding-left: 1rem;
       font-size: 1.2rem;

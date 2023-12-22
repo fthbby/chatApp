@@ -22,21 +22,26 @@ export default function Header({ currentChat, currentUser, contacts }) {
 
   // Assuming 'contacts' is an array of options for autocomplete
 
-
   const handleChange = (event, value) => {
     setSelectedValue(value);
   };
-
 
   return (
     <Container>
       <div className="chat-header">
         <div className="user-details">
-          <div className="brand">
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "1rem",
+              height: "5rem",
+            }}
+          >
             <img src={TeamsLogo} alt="logo" />
-            <h4>TeamsClone</h4>
-          </div>
-    
+            <h4>Teams</h4>
+          </Box>
         </div>
         <Input
           onFocus={() => setFocus(true)}
@@ -117,13 +122,7 @@ export default function Header({ currentChat, currentUser, contacts }) {
 const Container = styled.div`
   background-color: #5558ae;
   width: 100%;
-  .brand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    height: 5rem;
-  }
+
   img {
     height: 2rem;
   }

@@ -3,6 +3,7 @@ import { Box, Button, Typography, Modal, Grid } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
+import GeneralSection from "./GeneralSection";
 
 function SettingsModal({ open, onClose }) {
   const [isActive, setIsActive] = useState("General");
@@ -32,9 +33,11 @@ function SettingsModal({ open, onClose }) {
                 display={"flex"}
                 alignItems={"center"}
                 onClick={() => setIsActive(x.title)}
+                backgroundColor={x.title == isActive ? '#EBEBEB' : ''}
                 sx={{
                   padding: 1,
                   cursor: "pointer",
+                  borderRadius:1,
                   transition: " background 0.3s ease-in-out",
                   "&:hover": {
                     background: "#EBEBEB",
@@ -48,7 +51,7 @@ function SettingsModal({ open, onClose }) {
 
           <Grid item md={1} />
           <Grid item md={7}>
-            {isActive == "General" && <>General</>}
+            {isActive == "General" && <><GeneralSection/></>}
 
             {isActive == "Accounts" && <>Accounts</>}
           </Grid>

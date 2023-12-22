@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0"
+  }
+}

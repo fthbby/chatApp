@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import TeamsLogo from "../assets/TeamsLogo.png";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ContactsCard from "../pages/Chat/components/ContactsCard";
 
 export default function Contacts({
@@ -13,6 +13,8 @@ export default function Contacts({
 }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
+
+  const [recent, setRecent] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
@@ -28,29 +30,63 @@ export default function Contacts({
   console.log("contacts :", contacts);
   return (
     <>
-      {currentUserName && (
-        <Container>
-          {/* <div className="brand">
-            <img src={TeamsLogo} alt="logo" />
-            <h3>TeamsClone</h3>
-          </div> */}
-          <Box
-            display={"flex"}
-            flexDirection={"column"}
-            alignItems={"center"}
-            overflow={"auto"}
-            gap={"0.8rem"}
-          >
-            {contacts.map((contact, index) => (
-              <ContactsCard
-                contact={contact}
-                index={index}
-                changeCurrentChat={changeCurrentChat}
-                currentSelected={currentSelected}
-              />
-            ))}
+      {/* {currentUserName && ( */}
+      <Box backgroundColor="#fefefc">
+        <Box
+          padding={2}
+          fontWeight={600}
+          display={"flex"}
+          justifyContent={"space-between"}
+        >
+          Chat
+          <Box>
+            <Typography
+              display="inline-block"
+              fontSize={12}
+              mr={2}
+              onClick={() => setRecent(true)}
+              color={recent ? "#C2C1D6" : "black"}
+              borderBottom={recent ? "2px solid #C2C1D6 " : "none"}
+              sx={{ cursor: "pointer", pb: .5 }}
+            >
+              Recent
+            </Typography>
+            <Typography
+              display="inline-block"
+              fontSize={12}
+              onClick={() => setRecent(false)}
+              color={recent ? "black" : "#C2C1D6"}
+              borderBottom={recent ? "none" : "2px solid #C2C1D6"}
+              sx={{ cursor: "pointer", pb: .5 }}
+            >
+              Contacts
+            </Typography>
           </Box>
-          {/* <div className="current-user">
+        </Box>
+
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          // overflow={"auto"}
+          // gap={"0.8rem"}
+        >
+          {recent ? (
+            ""
+          ) : (
+            <>
+              {contacts.map((contact, index) => (
+                <ContactsCard
+                  contact={contact}
+                  index={index}
+                  changeCurrentChat={changeCurrentChat}
+                  currentSelected={currentSelected}
+                />
+              ))}
+            </>
+          )}
+        </Box>
+        {/* <div className="current-user">
             <div className="avatar">
               <img src={avatar} />
             </div>
@@ -58,24 +94,17 @@ export default function Contacts({
               <h2>{currentUser.username}</h2>
             </div>
           </div> */}
-        </Container>
-      )}
+      </Box>
+      {/* )} */}
     </>
   );
 }
 
 const Container = styled.div`
-  display: grid;
-  gird-template-rows: 10% 75% 15%;
-  overflow: hidden;
-  background-color: #fefefc;
-  .brand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    height: 5rem;
-  }
+  ${"" /* display: grid; */}
+  ${"" /* gird-template-rows: 10% 75% 15%; */}
+  ${"" /* overflow: hidden; */}
+  ${"" /* background-color: #fefefc; */}
 
   .current-user {
     display: flex;

@@ -1,37 +1,39 @@
-import React from 'react'
-import { Box, Grid } from "@mui/material";
-import avatar from '../../../assets/avatar.jpg'
+import React from "react";
+import { Box, Grid, Typography } from "@mui/material";
+import avatar from "../../../assets/avatar.jpg";
 
-
-function ContactsCard({contact, index, changeCurrentChat, currentSelected}) {
+function ContactsCard({ contact, index, changeCurrentChat, currentSelected }) {
   return (
     <Box
-    minHeight={"5rem"}
-    width={"90%"}
-    cursor={"pointer"}
-    borderRadius={"0.2rem"}
-    padding={"0.4rem"}
-    gap={"1rem"}
-    alignItems={"center"}
-    display={"flex"}
-    transition={"0.5s ease-in-out"}
-    key={contact._id}
-    backgroundColor={`${index === currentSelected ? "#ECEBE7" : ""}`}
-    onClick={() => changeCurrentChat(index, contact)}
-  >
-    <Box>
+      // minHeight={"5rem"}
+      width={"90%"}
+      cursor={"pointer"}
+      borderRadius={"0.2rem"}
+      padding={"0.4rem"}
+      gap={"1rem"}
+      alignItems={"center"}
+      display={"flex"}
+      transition={"0.5s ease-in-out"}
+      key={contact._id}
+      backgroundColor={`${index === currentSelected ? "#ECEBE7" : ""}`}
+      onClick={() => changeCurrentChat(index, contact)}
+    >
       <Box
         component={"img"}
         src={avatar}
         borderRadius={"50%"}
         height={"3rem"}
       />
-    </Box>
+      <Box display={'flex'} justifyContent={'space-between'} width={'100%'} alignItems={'center'}>
+        <Box display={"flex"} flexDirection={"column"}>
+          <h5>{contact.username}</h5>
+          <Typography fontSize={12}>Hi</Typography>
+        </Box>
 
-    <Box>
-      <h3>{contact.username}</h3>
+        <Typography fontSize={12}>11/2</Typography>
+      </Box>
     </Box>
-  </Box>  )
+  );
 }
 
-export default ContactsCard
+export default ContactsCard;

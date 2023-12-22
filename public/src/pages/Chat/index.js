@@ -6,7 +6,7 @@ import { Box, Grid } from "@mui/material";
 import { allUsersRoute, host } from "../../api/routes";
 import Welcome from "../../components/Welcome";
 import ChatContainer from "../../components/ChatContainer";
-import Header from "../../components/Header";
+import Header from "./components/Header";
 import Contacts from "../Chat/components/Contacts";
 
 export default function Chat() {

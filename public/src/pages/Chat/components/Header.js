@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
-import TeamsLogo from "../assets/TeamsLogo.png";
+import TeamsLogo from "../../../assets/TeamsLogo.png";
 import { Autocomplete, TextField, Box, Grid } from "@mui/material/";
-import ProfileDropDown from "../components/ProfileDropDown";
+import ProfileDropDown from "../../../components/ProfileDropDown";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
 

@@ -1,13 +1,11 @@
 import styled from "styled-components";
-import avatar from "../assets/avatar.jpg";
-import Logout from "./Logout";
-import ChatInput from "./ChatInput";
 import axios from "axios";
-import { getAllMessageRoute, sendMessageRoute } from "../api/routes";
 import { useState, useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Avatar, Box, Divider, Typography } from "@mui/material";
 import OtherUserHeader from "../pages/Chat/components/OtherUserHeader";
+import { getAllMessageRoute, sendMessageRoute } from "../api/routes";
+import ChatInput from "./ChatInput";
 
 export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
@@ -75,11 +73,9 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
 
   return (
     <>
-      <Container>
+      <Box display={"grid"} gridTemplateRows={"10% 75% 15%"} overflow={'hidden'}>
         <OtherUserHeader currentChat={currentChat} />
-
         <Box
-          mt={5}
           padding={"2rem 2rem"}
           display="flex"
           flexDirection={"column"}
@@ -88,7 +84,14 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
         >
           {messages.map((message, index) => {
             return (
-              <div ref={scrollRef} key={uuidv4}>
+              <Box
+                ref={scrollRef}
+                key={uuidv4}
+                display={!message.fromSelf && "flex"}
+                flexDirection={!message.fromSelf && "row"}
+                alignItems={"center"}
+              >
+                {!message.fromSelf && <Avatar sx={{ marginRight: 2 }} />}
                 <Box style={message.fromSelf ? styles.sended : styles.received}>
                   <Box
                     style={
@@ -96,17 +99,18 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
                         ? styles.sentBubble
                         : styles.receivedBubble
                     }
-                    padding={2}
+                    padding={1}
                   >
-                    <p>{message.message}</p>
+                    {!message.fromSelf ? currentChat.username + "11/2" : "11/2"}
+                    <Box pt={0.5}>{message.message}</Box>
                   </Box>
                 </Box>
-              </div>
+              </Box>
             );
           })}
         </Box>
         <ChatInput handleSendMessage={handleSendMessage} />
-      </Container>
+      </Box>
     </>
   );
 }
@@ -130,34 +134,18 @@ const styles = {
 
   receivedBubble: {
     borderRadius: 5,
-    backgroundColor: "#e5e5f1",
+    backgroundColor: "white",
   },
 };
 
 const Container = styled.div`
-  display: grid;
+  ${'' /* display: grid;
   grid-template-rows: 0% 90% 10%;
   gap: 0.1rem;
-  overflow: hidden;
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
+  overflow: hidden; */}
+  ${'' /* @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 0% 85% 15%;
-  }
-
-  .user-details {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    .avatar {
-      img {
-        height: 3rem;
-      }
-    }
-    .username {
-      h3 {
-        color: pink;
-      }
-    }
-  }
+  } */}
 
   .content {
     max-width: 40%;
@@ -170,22 +158,7 @@ const Container = styled.div`
       max-width: 70%;
     }
   }
-  ${
-    "" /* .sended {
-    justify-content: flex-end;
-    .content {
-      background-color: #e5e5f1;
-    }
-  } */
-  }
-  ${
-    "" /* .received {
-    justify-content: flex-start;
-    .content {
-      background-color: grey;
-    }
-  } */
-  }
+
   .chat-messages {
     padding: 1rem 2rem;
     display: flex;

@@ -1,14 +1,13 @@
 import axios from "axios";
-import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
-import { allUsersRoute, host } from "../../api/routes";
-import { useNavigate } from "react-router-dom";
-import Welcome from "../../components/Welcome";
-import Contacts from "../../components/Contacts";
-import ChatContainer from "../../components/ChatContainer";
 import { io } from "socket.io-client";
-import Header from "../../components/Header";
+import { useNavigate } from "react-router-dom";
 import { Box, Grid } from "@mui/material";
+import { allUsersRoute, host } from "../../api/routes";
+import Welcome from "../../components/Welcome";
+import ChatContainer from "../../components/ChatContainer";
+import Header from "../../components/Header";
+import Contacts from "../Chat/components/Contacts";
 
 export default function Chat() {
   const socket = useRef();
@@ -72,7 +71,7 @@ export default function Chat() {
         gap={"1rem"}
         backgroundColor="black"
       >
-        <Box backgroundColor="#F5F2EE" >
+        <Box backgroundColor="#F5F5F5">
           <Header
             currentChat={currentChat}
             currentUser={currentUser}
@@ -80,7 +79,6 @@ export default function Chat() {
             handleChatChange={handleChatChange}
             currentSelected={currentSelected}
             setCurrentSelected={setCurrentSelected}
-            
           />
           <Box
             display="grid"
@@ -88,23 +86,23 @@ export default function Chat() {
             height={"85vh"}
             width={"85vh"}
           >
-              <Contacts
-                contacts={contacts}
-                currentUser={currentUser}
-                handleChatChange={handleChatChange}
-                currentSelected={currentSelected}
-                setCurrentSelected={setCurrentSelected}
-              />
+            <Contacts
+              contacts={contacts}
+              currentUser={currentUser}
+              handleChatChange={handleChatChange}
+              currentSelected={currentSelected}
+              setCurrentSelected={setCurrentSelected}
+            />
 
-              {isLoaded && currentChat === undefined ? (
-                <Welcome currentUser={currentUser} />
-              ) : (
-                <ChatContainer
-                  currentChat={currentChat}
-                  currentUser={currentUser}
-                  socket={socket}
-                />
-              )}
+            {isLoaded && currentChat === undefined ? (
+              <Welcome currentUser={currentUser} />
+            ) : (
+              <ChatContainer
+                currentChat={currentChat}
+                currentUser={currentUser}
+                socket={socket}
+              />
+            )}
           </Box>
         </Box>
       </Box>
@@ -112,30 +110,5 @@ export default function Chat() {
   );
 }
 
-const Container = styled.div`
-  height: 100vh;
-  weight: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  background-color: grey;
-  ${
-    "" /* .container {
-    background-color: white;
-  } */
-  }
-
-  ${
-    "" /* .contactsandchat {
-    display: grid;
-    grid-template-columns: 30% 70%;
-    height: 85vh;
-    width: 85vh;
-  } */
-  }
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
-    grid-template-columns: 35% 65%;
-  }
-`;
+//   @media screen and (min-width: 720px) and (max-width: 1080px) {
+//     grid-template-columns: 35% 65%;

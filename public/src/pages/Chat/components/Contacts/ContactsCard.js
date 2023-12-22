@@ -1,13 +1,13 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
-import avatar from "../../../assets/avatar.jpg";
+import avatar from "../../../../assets/avatar.jpg";
 
 function ContactsCard({ contact, index, changeCurrentChat, currentSelected }) {
   return (
     <Box
+      sx={{ cursor: "pointer" }}
       // minHeight={"5rem"}
       width={"90%"}
-      cursor={"pointer"}
       borderRadius={"0.2rem"}
       padding={"0.4rem"}
       gap={"1rem"}
@@ -24,7 +24,12 @@ function ContactsCard({ contact, index, changeCurrentChat, currentSelected }) {
         borderRadius={"50%"}
         height={"3rem"}
       />
-      <Box display={'flex'} justifyContent={'space-between'} width={'100%'} alignItems={'center'}>
+      <Box
+        display={"flex"}
+        justifyContent={"space-between"}
+        width={"100%"}
+        alignItems={"center"}
+      >
         <Box display={"flex"} flexDirection={"column"}>
           <h5>{contact.username}</h5>
           <Typography fontSize={12}>Hi</Typography>

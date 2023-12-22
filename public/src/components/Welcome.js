@@ -1,28 +1,21 @@
-import styled from "styled-components";
-import Robot from "../assets/robot.gif";
+import { Box, Typography } from "@mui/material/";
+import Welcome from "../assets/Welcome.png";
 
-export default function Main ({ currentUser }) {
+export default function Main({ currentUser }) {
   return (
-    <Container>
-      <img src={Robot} alt="robot" />
-      <h1>
-        Welcome, <span>{currentUser?.username}!</span>
-      </h1>
-      <h3>Please select a chat to start messaging :)</h3>
-    </Container>
-  );
-};
+    <Box
+      display={"flex"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      flexDirection={"column"}
+    >
+      <Box component={"img"} src={Welcome} alt="welcome" height={"20rem"} />
+      <Box display={"flex"} flexDirection={"row"}>
+        <Typography variant="h4">Welcome,</Typography>
+        <Typography variant='h4' color="purple"> {currentUser?.username}!</Typography>
+      </Box>
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: purple;
-  img {
-    height: 20rem;
-  }
-  span {
-    color: black;
-  }
-`;
+      <h3>Please select a chat to start messaging :)</h3>
+    </Box>
+  );
+}

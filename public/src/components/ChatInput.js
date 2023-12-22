@@ -1,14 +1,9 @@
 import styled from "styled-components";
-import Picker from "emoji-picker-react";
 import { IoMdSend } from "react-icons/io";
-import { BsEmojiSmileFill } from "react-icons/bs";
 import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import {
-  Autocomplete,
   Input,
-  InputAdornment,
-  TextField,
   Box,
 } from "@mui/material/";
 

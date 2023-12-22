@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Logout from "./Logout";
 import TeamsLogo from "../assets/TeamsLogo.png";
 import { Autocomplete, TextField, Box, Grid } from "@mui/material/";
 import ProfileDropDown from "../components/ProfileDropDown";
@@ -112,39 +111,6 @@ export default function Header({
           />
         </Grid>
 
-        {/* <Autocomplete
-        options={contacts}
-        getOptionLabel={(option) => option.username}
-        getOptionSelected={(option, value) => option._id === value._id}
-
-        value={selectedValue}
-        onChange={handleChange}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label={focus ? 'Search for people and chats' : 'Search'}
-            variant="outlined"
-            // fullWidth
-            InputLabelProps={{
-              shrink: true,
-              style: {
-                fontWeight: 'bold',
-              },
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  {!focus && <SearchIcon />}
-                </InputAdornment>
-              ),
-              classes: {
-                root: focus ? 'focusInput' : 'input',
-              },
-              disableUnderline: true,
-            }}
-          />
-        )}
-      /> */}
         <Grid item md={1} display={"flex"} alignItems={"center"}>
           <ProfileDropDown currentUser={currentUser} />
         </Grid>

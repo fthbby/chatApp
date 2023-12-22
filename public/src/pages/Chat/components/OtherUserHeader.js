@@ -7,7 +7,7 @@ function OtherUserHeader({currentChat}) {
     <Box
     display={"flex"}
     alignItems={"center"}
-    padding={"2rem 2rem"}
+    padding={"2rem 1rem"}
     borderBottom={".5px solid gray"}
   >
     <Avatar sx={{ mr: 2 }} />

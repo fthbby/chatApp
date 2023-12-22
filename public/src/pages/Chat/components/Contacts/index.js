@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import TeamsLogo from "../assets/TeamsLogo.png";
+// import TeamsLogo from "../assets/TeamsLogo.png";
 import { Box, Typography } from "@mui/material";
-import ContactsCard from "../pages/Chat/components/ContactsCard";
+import ContactsCard from "./ContactsCard";
 
 export default function Contacts({
   contacts,

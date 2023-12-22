@@ -1,13 +1,13 @@
 import axios from "axios";
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
-import { allUsersRoute, host } from "../api/routes";
+import { allUsersRoute, host } from "../../api/routes";
 import { useNavigate } from "react-router-dom";
-import Welcome from "../components/Welcome";
-import Contacts from "../components/Contacts";
-import ChatContainer from "../components/ChatContainer";
+import Welcome from "../../components/Welcome";
+import Contacts from "../../components/Contacts";
+import ChatContainer from "../../components/ChatContainer";
 import { io } from "socket.io-client";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import { Box, Grid } from "@mui/material";
 
 export default function Chat() {

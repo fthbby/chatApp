@@ -19,23 +19,14 @@ export default function Header({
   currentUser,
   contacts,
   handleChatChange,
-  currentSelected,
   setCurrentSelected,
 }) {
   const [focus, setFocus] = useState(false);
-
-  console.log("contacts :", contacts);
-
   const [selectedValue, setSelectedValue] = useState(null);
-
-  // Assuming 'contacts' is an array of options for autocomplete
 
   const handleChange = (event, value) => {
     setSelectedValue(value);
   };
-  const [inputValue, setInputValue] = useState("");
-
-  // const [currentSelected, setCurrentSelected] = useState(undefined);
 
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);

@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import TeamsLogo from "../assets/TeamsLogo.png";
-import avatar from "../assets/avatar.jpg";
-export default function Contacts({ contacts, currentUser, handleChatChange, currentSelected, setCurrentSelected }) {
+import { Box } from "@mui/material";
+import ContactsCard from "../pages/Chat/components/ContactsCard";
+
+export default function Contacts({
+  contacts,
+  currentUser,
+  handleChatChange,
+  currentSelected,
+  setCurrentSelected,
+}) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
 
@@ -26,27 +34,22 @@ export default function Contacts({ contacts, currentUser, handleChatChange, curr
             <img src={TeamsLogo} alt="logo" />
             <h3>TeamsClone</h3>
           </div> */}
-          <div className="contacts">
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={"center"}
+            overflow={"auto"}
+            gap={"0.8rem"}
+          >
             {contacts.map((contact, index) => (
-              <div
-                key={contact._id}
-                className={`contact ${
-                  index === currentSelected ? "selected" : ""
-                }`}
-                onClick={() => changeCurrentChat(index, contact)}
-              >
-                <div className="avatar">
-                  <img src={avatar} />
-                </div>
-
-                <div className="username">
-                  <h3>{contact.username}</h3>
-                </div>
-              </div>
+              <ContactsCard
+                contact={contact}
+                index={index}
+                changeCurrentChat={changeCurrentChat}
+                currentSelected={currentSelected}
+              />
             ))}
-
-          
-          </div>
+          </Box>
           {/* <div className="current-user">
             <div className="avatar">
               <img src={avatar} />
@@ -73,56 +76,9 @@ const Container = styled.div`
     gap: 1rem;
     height: 5rem;
   }
-  img {
-    height: 2rem;
-  }
-  h3 {
-    color: black;
-    text-transform: uppercase;
-  }
 
-  .contacts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
-    gap: 0.8rem;
-    &::-webkit-scrollbar {
-      width: 0.2rem;
-      &-thumb {
-        background-color: #5558ae;
-        width: 0.1rem;
-        border-radius: 1rem;
-      }
-    }
-    .contact {
-      background-color: white;
-      min-height: 5rem;
-      width: 90%;
-      cursor: pointer;
-      border-raidus: 0.2rem;
-      padding: 0.4rem;
-      gap: 1rem;
-      align-items: center;
-      display: flex;
-      transition: 0.5s ease-in-out;
-      .avatar {
-        img {
-          height: 3rem;
-          border-radius: 50%;
-        }
-      }
-    }
-
-    .username {
-      h3 {
-        color: black;
-        ${"" /* background-color: */}
-      }
-    }
-    .selected {
-      background-color: purple;
-    }
+  .selected {
+    background-color: purple;
   }
 
   .current-user {

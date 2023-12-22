@@ -8,6 +8,7 @@ import Contacts from "../components/Contacts";
 import ChatContainer from "../components/ChatContainer";
 import { io } from "socket.io-client";
 import Header from "../components/Header";
+import { Box, Grid } from "@mui/material";
 
 export default function Chat() {
   const socket = useRef();
@@ -59,32 +60,46 @@ export default function Chat() {
 
   return (
     <>
-      <Container>
-        <div className="container">
-          <Header currentChat={currentChat} 
+      <Box
+        height={"100vh"}
+        width={"100vw"}
+        display="flex"
+        flexDirection={"column"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        gap={"1rem"}
+        backgroundColor="black"
+      >
+        <Box backgroundColor="white" >
+          <Header
+            currentChat={currentChat}
             currentUser={currentUser}
             contacts={contacts}
-
           />
-          <div className="contactsandchat">
-            <Contacts
-              contacts={contacts}
-              currentUser={currentUser}
-              changeChat={handleChatChange}
-            />
-
-            {isLoaded && currentChat === undefined ? (
-              <Welcome currentUser={currentUser} />
-            ) : (
-              <ChatContainer
-                currentChat={currentChat}
+          <Box
+            display="grid"
+            gridTemplateColumns={"30% 70%"}
+            height={"85vh"}
+            width={"85vh"}
+          >
+              <Contacts
+                contacts={contacts}
                 currentUser={currentUser}
-                socket={socket}
+                changeChat={handleChatChange}
               />
-            )}
-          </div>
-        </div>
-      </Container>
+
+              {isLoaded && currentChat === undefined ? (
+                <Welcome currentUser={currentUser} />
+              ) : (
+                <ChatContainer
+                  currentChat={currentChat}
+                  currentUser={currentUser}
+                  socket={socket}
+                />
+              )}
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 }
@@ -97,20 +112,20 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  ${'' /* background-color: #5558ae; */}
-  background-color:grey;
-  .container {
-    ${'' /* height: 85vh; */}
-    ${'' /* width: 85vh; */}
-    background-color:white;
+  background-color: grey;
+  ${
+    "" /* .container {
+    background-color: white;
+  } */
   }
 
-  .contactsandchat {
+  ${
+    "" /* .contactsandchat {
     display: grid;
     grid-template-columns: 30% 70%;
     height: 85vh;
     width: 85vh;
-
+  } */
   }
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-columns: 35% 65%;

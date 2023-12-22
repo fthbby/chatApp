@@ -49,14 +49,14 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
 
           
           </div>
-          <div className="current-user">
+          {/* <div className="current-user">
             <div className="avatar">
               <img src={avatar} />
             </div>
             <div className="username">
               <h2>{currentUser.username}</h2>
             </div>
-          </div>
+          </div> */}
         </Container>
       )}
     </>

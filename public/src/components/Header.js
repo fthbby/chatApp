@@ -8,6 +8,7 @@ import {
   InputAdornment,
   TextField,
   Box,
+  Grid,
 } from "@mui/material/";
 import ProfileDropDown from "../components/ProfileDropDown";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -28,8 +29,8 @@ export default function Header({ currentChat, currentUser, contacts }) {
 
   return (
     <Container>
-      <div className="chat-header">
-        <div className="user-details">
+      <Grid container display="flex" justifyContent={"space-between"} padding={"0 2rem"}>
+        <Grid item md={2} display="flex" alignItems={"center"} gap={"1rem"}>
           <Box
             sx={{
               display: "flex",
@@ -39,11 +40,13 @@ export default function Header({ currentChat, currentUser, contacts }) {
               height: "5rem",
             }}
           >
-            <img src={TeamsLogo} alt="logo" />
-            <h4>Teams</h4>
+            <Box component="img" src={TeamsLogo} alt="logo" height={"2rem"} />
+            {/* <h4>Teams</h4> */}
           </Box>
-        </div>
+        </Grid>
+        <Grid item  md={7} >
         <Input
+          sx={{ marginTop: "1rem", width:'100%' }}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
           disableUnderline
@@ -55,6 +58,8 @@ export default function Header({ currentChat, currentUser, contacts }) {
             </InputAdornment>
           }
         />
+        </Grid>
+
 
         {/* <Autocomplete
           options={contacts}
@@ -111,63 +116,41 @@ export default function Header({ currentChat, currentUser, contacts }) {
           />
         )}
       /> */}
-        <div className="avatar">
+        <Grid item md={1} display={"flex"} alignItems={"center"}>
           <ProfileDropDown currentUser={currentUser} />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
 
+
 const Container = styled.div`
-  background-color: #5558ae;
+  background-color: #454791;
   width: 100%;
-
-  img {
-    height: 2rem;
+  .input {
+    border: 1px solid #e6e9eb;
+    height: 40px;
+    ${'' /* width: 400px; */}
+    border-radius: 5px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-right: 16px;
+    padding-left: 16px;
+    background-color: #dadae9;
   }
-  h4 {
-    color: black;
-    text-transform: uppercase;
+  .focusInput {
+    border: 1px solid #e6e9eb;
+    height: 40px;
+    ${'' /* width: 400px; */}
+    border-radius: 5px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-right: 16px;
+    padding-left: 16px;
+    background-color: white;
   }
 
-  .chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-    .input {
-      border: 1px solid #e6e9eb;
-      height: 40px;
-      width: 400px;
-      border-radius: 5px;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      padding-right: 16px;
-      padding-left: 16px;
-      background-color: #dadae9;
-    }
-    .focusInput {
-      border: 1px solid #e6e9eb;
-      height: 40px;
-      width: 400px;
-      border-radius: 5px;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      padding-right: 16px;
-      padding-left: 16px;
-      background-color: white;
-    }
-    .user-details {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
 
-      .username {
-        h3 {
-          color: pink;
-        }
-      }
-    }
-  }
+  
 `;

@@ -58,13 +58,15 @@ export default function Chat() {
     setCurrentChat(chat);
   };
 
+  const [currentSelected, setCurrentSelected] = useState(undefined);
+
   return (
     <>
       <Box
         height={"100vh"}
         width={"100vw"}
         display="flex"
-        flexDirection={"column"}
+        // flexDirection={"column"}
         alignItems={"center"}
         justifyContent={"center"}
         gap={"1rem"}
@@ -75,6 +77,10 @@ export default function Chat() {
             currentChat={currentChat}
             currentUser={currentUser}
             contacts={contacts}
+            handleChatChange={handleChatChange}
+            currentSelected={currentSelected}
+            setCurrentSelected={setCurrentSelected}
+            
           />
           <Box
             display="grid"
@@ -85,7 +91,9 @@ export default function Chat() {
               <Contacts
                 contacts={contacts}
                 currentUser={currentUser}
-                changeChat={handleChatChange}
+                handleChatChange={handleChatChange}
+                currentSelected={currentSelected}
+                setCurrentSelected={setCurrentSelected}
               />
 
               {isLoaded && currentChat === undefined ? (

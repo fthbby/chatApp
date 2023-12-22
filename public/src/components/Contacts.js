@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import TeamsLogo from "../assets/TeamsLogo.png";
 import avatar from "../assets/avatar.jpg";
-export default function Contacts({ contacts, currentUser, changeChat }) {
+export default function Contacts({ contacts, currentUser, handleChatChange, currentSelected, setCurrentSelected }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
-  const [currentSelected, setCurrentSelected] = useState(undefined);
 
   useEffect(() => {
     if (currentUser) {
@@ -15,8 +14,7 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
 
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
-    changeChat(contact);
-    console.log(index, contact);
+    handleChatChange(contact);
   };
 
   console.log("contacts :", contacts);

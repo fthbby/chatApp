@@ -68,7 +68,7 @@ const Container = styled.div`
   display: grid;
   gird-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #f0f0f0;
+  background-color: #fefefc;
   .brand {
     display: flex;
     align-items: center;
@@ -77,12 +77,7 @@ const Container = styled.div`
     height: 5rem;
   }
 
-  .selected {
-    background-color: purple;
-  }
-
   .current-user {
-    ${"" /* background-color: orange; */}
     display: flex;
     justify-content: center;
     align-items: center;

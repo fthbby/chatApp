@@ -6,6 +6,8 @@ import axios from "axios";
 import { getAllMessageRoute, sendMessageRoute } from "../api/routes";
 import { useState, useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Avatar, Box, Divider, Typography } from "@mui/material";
+import OtherUserHeader from "../pages/Chat/components/OtherUserHeader";
 
 export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
@@ -74,39 +76,63 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
   return (
     <>
       <Container>
-        <div className="chat-header">
-        {/* <div className="user-details">
-            <div className="avatar">
-              <img src={avatar} alt="" />
-            </div>
-            <div className="username">
-              <h3>{currentChat?.username}</h3>
-            </div>
-          </div>
-          <Logout /> */}
-        </div>
-        <div className="chat-messages">
+        <OtherUserHeader currentChat={currentChat} />
+
+        <Box
+          mt={5}
+          padding={"2rem 2rem"}
+          display="flex"
+          flexDirection={"column"}
+          gap={"1rem"}
+          overflow={"auto"}
+        >
           {messages.map((message, index) => {
             return (
               <div ref={scrollRef} key={uuidv4}>
-                <div
-                  className={`message ${
-                    message.fromSelf ? "sended" : "received"
-                  }`}
-                >
-                  <div className="content">
+                <Box style={message.fromSelf ? styles.sended : styles.received}>
+                  <Box
+                    style={
+                      message.fromSelf
+                        ? styles.sentBubble
+                        : styles.receivedBubble
+                    }
+                    padding={2}
+                  >
                     <p>{message.message}</p>
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               </div>
             );
           })}
-        </div>
+        </Box>
         <ChatInput handleSendMessage={handleSendMessage} />
       </Container>
     </>
   );
 }
+
+const styles = {
+  sended: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  received: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+
+  sentBubble: {
+    borderRadius: 5,
+    backgroundColor: "#e5e5f1",
+  },
+
+  receivedBubble: {
+    borderRadius: 5,
+    backgroundColor: "#e5e5f1",
+  },
+};
 
 const Container = styled.div`
   display: grid;
@@ -116,26 +142,49 @@ const Container = styled.div`
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 0% 85% 15%;
   }
-  .chat-header {
+
+  .user-details {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
-    .user-details {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      .avatar {
-        img {
-          height: 3rem;
-        }
-      }
-      .username {
-        h3 {
-          color: pink;
-        }
+    gap: 1rem;
+    .avatar {
+      img {
+        height: 3rem;
       }
     }
+    .username {
+      h3 {
+        color: pink;
+      }
+    }
+  }
+
+  .content {
+    max-width: 40%;
+    overflow-wrap: break-word;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    color: #d1d1d1;
+    @media screen and (min-width: 720px) and (max-width: 1080px) {
+      max-width: 70%;
+    }
+  }
+  ${
+    "" /* .sended {
+    justify-content: flex-end;
+    .content {
+      background-color: #e5e5f1;
+    }
+  } */
+  }
+  ${
+    "" /* .received {
+    justify-content: flex-start;
+    .content {
+      background-color: grey;
+    }
+  } */
   }
   .chat-messages {
     padding: 1rem 2rem;
@@ -150,33 +199,6 @@ const Container = styled.div`
         background-color: red;
         width: 0.1rem;
         border-radius: 1rem;
-      }
-    }
-    .message {
-      display: flex;
-      align-items: center;
-      .content {
-        max-width: 40%;
-        overflow-wrap: break-word;
-        padding: 1rem;
-        font-size: 1.1rem;
-        border-radius: 1rem;
-        color: #d1d1d1;
-        @media screen and (min-width: 720px) and (max-width: 1080px) {
-          max-width: 70%;
-        }
-      }
-    }
-    .sended {
-      justify-content: flex-end;
-      .content {
-        background-color: purple;
-      }
-    }
-    .received {
-      justify-content: flex-start;
-      .content {
-        background-color: grey;
       }
     }
   }

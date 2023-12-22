@@ -16,7 +16,7 @@ function ContactsCard({contact, index, changeCurrentChat, currentSelected}) {
     display={"flex"}
     transition={"0.5s ease-in-out"}
     key={contact._id}
-    className={`${index === currentSelected ? "selected" : ""}`}
+    backgroundColor={`${index === currentSelected ? "#ECEBE7" : ""}`}
     onClick={() => changeCurrentChat(index, contact)}
   >
     <Box>

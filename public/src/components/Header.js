@@ -1,19 +1,12 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Logout from "./Logout";
-import avatar from "../assets/avatar.jpg";
 import TeamsLogo from "../assets/TeamsLogo.png";
-import {
-  Autocomplete,
-  Input,
-  InputAdornment,
-  TextField,
-  Box,
-  Grid,
-} from "@mui/material/";
+import { Autocomplete, TextField, Box, Grid } from "@mui/material/";
 import ProfileDropDown from "../components/ProfileDropDown";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+
 export default function Header({
   currentChat,
   currentUser,
@@ -23,10 +16,6 @@ export default function Header({
 }) {
   const [focus, setFocus] = useState(false);
   const [selectedValue, setSelectedValue] = useState(null);
-
-  const handleChange = (event, value) => {
-    setSelectedValue(value);
-  };
 
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);

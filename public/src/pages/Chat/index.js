@@ -72,7 +72,7 @@ export default function Chat() {
         gap={"1rem"}
         backgroundColor="black"
       >
-        <Box backgroundColor="white" >
+        <Box backgroundColor="#F5F2EE" >
           <Header
             currentChat={currentChat}
             currentUser={currentUser}

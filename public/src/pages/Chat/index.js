@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Grid } from "@mui/material";
 import { allUsersRoute, host } from "../../api/routes";
 import Welcome from "../../components/Welcome";
-import ChatContainer from "../../components/ChatContainer";
+import ChatContainer from "./components/ChatContainer";
 import Header from "./components/Header";
 import Contacts from "../Chat/components/Contacts";
 

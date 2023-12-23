@@ -27,7 +27,7 @@ function SettingsModal({ open, onClose }) {
         </Box>
 
         <Grid container mt={2}>
-          <Grid item md={4} display={"flex"} flexDirection={"column"}>
+          <Grid item xs={4} md={4} display={"flex"} flexDirection={"column"}>
             {navItems.map((x) => (
               <Box
                 display={"flex"}
@@ -50,7 +50,7 @@ function SettingsModal({ open, onClose }) {
           </Grid>
 
           <Grid item md={1} />
-          <Grid item md={7}>
+          <Grid item xs={7} md={7}>
             {isActive == "General" && <><GeneralSection/></>}
 
             {isActive == "Accounts" && <>Accounts</>}
@@ -66,7 +66,7 @@ const styles = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  minWidth: 500,
+  minWidth: 600,
   minHeight:600,
   boxShadow: 24,
   p: 4,

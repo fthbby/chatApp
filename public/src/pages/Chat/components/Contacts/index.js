@@ -40,6 +40,8 @@ export default function Contacts({
           fontWeight={600}
           display={"flex"}
           justifyContent={"space-between"}
+          borderBottom={'1px solid #ABAAAA'}
+          mb={1}
         >
           Chat
           <Box>

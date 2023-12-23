@@ -64,7 +64,7 @@ export default function ChatInput({ handleSendMessage }) {
           }}
         >
           {/* <IoMdSend fontSize={30} onClick={sendChat} /> */}
-          <SendOutlinedIcon onClick={sendChat} sx={{ color: "#ABAAAA" }} />
+          <SendOutlinedIcon onClick={sendChat} sx={{ color: "black" }} />
         </Box>
       </form>
     </Box>

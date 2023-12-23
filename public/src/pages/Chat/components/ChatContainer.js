@@ -3,9 +3,9 @@ import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Avatar, Box, Divider, Typography } from "@mui/material";
-import OtherUserHeader from "../pages/Chat/components/OtherUserHeader";
-import { getAllMessageRoute, sendMessageRoute } from "../api/routes";
-import ChatInput from "../pages/Chat/components/ChatInput";
+import OtherUserHeader from "./OtherUserHeader";
+import { getAllMessageRoute, sendMessageRoute } from "../../../api/routes";
+import ChatInput from "./ChatInput";
 
 export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
@@ -75,7 +75,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
     <>
       <Box
         display={"grid"}
-        gridTemplateRows={"10% 75% 15%"}
+        gridTemplateRows={"5% 80% 15%"}
         overflow={"hidden"}
         boxShadow={"0px 0px 8px rgba(0, 0, 0, 0.2)"}
       >

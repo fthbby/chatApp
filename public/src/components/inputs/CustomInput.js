@@ -20,6 +20,7 @@ const CustomInput = ({ onChange, placeholder, name, type = "text" }) => {
         border: `1px solid ${isFocused ? "orange" : "black"}`,
         // padding:'1rem'
       }}
+
     >
       <Input
         placeholder={placeholder}
@@ -39,3 +40,4 @@ const CustomInput = ({ onChange, placeholder, name, type = "text" }) => {
 };
 
 export default CustomInput;
+

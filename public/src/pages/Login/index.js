@@ -4,11 +4,11 @@ import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import Logo from "../../assets/TeamsLogo.png";
 import { loginRoute } from "../../api/routes";
 import Loading from "../../components/Loading";
 import CustomInput from "../../components/inputs/CustomInput";
 import { Button, Typography } from "@mui/material";
+import TeamsLogo from "../../components/TeamsLogo";
 
 function Login() {
   const navigate = useNavigate();
@@ -74,10 +74,7 @@ function Login() {
           <Loading />
         ) : (
           <form onSubmit={(event) => handleSubmit(event)}>
-            <div className="brand">
-              <img src={Logo} alt="" />
-              <h1>TeamsCLONE</h1>
-            </div>
+            <TeamsLogo />
 
             <CustomInput
               name="email"
@@ -119,19 +116,7 @@ const FormContainer = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: #5558ae;
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-content: center;
-    img {
-      height: 5rem;
-    }
-    h1 {
-      color: black;
-      text-transform: uppercase;
-    }
-  }
+
   form {
     display: flex;
     flex-direction: column;

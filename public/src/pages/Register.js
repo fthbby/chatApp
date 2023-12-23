@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import Logo from "../assets/TeamsLogo.png";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import Logo from "../assets/TeamsLogo.png";
 import { registerRoute } from "../api/routes";
+import CustomInput from "../components/inputs/CustomInput";
+import Loading from "../components/Loading";
+import { Typography } from "@mui/material";
+import TeamsLogo from "../components/TeamsLogo";
 
 function Register() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
-    firstName:'',
-    lastName:''
+    firstName: "",
+    lastName: "",
   });
 
   useEffect(() => {
@@ -38,23 +43,28 @@ function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
+      setLoading(true);
       console.log("in validation", registerRoute);
       const { password, username, email, lastName, firstName } = values;
-      console.log('vaues :', values)
+      console.log("vaues :", values);
       const { data } = await axios.post(registerRoute, {
         username,
         email,
         password,
         firstName,
-        lastName
+        lastName,
       });
 
-      console.log('data :', data)
+      console.log("data :", data);
 
       if (data.status === false) {
+        setLoading(false);
+
         toast.error(data.msg, toastStyle);
       }
       if (data.status === true) {
+        setLoading(false);
+
         localStorage.setItem("chat-app-user", JSON.stringify(data.user));
         navigate("/");
       }
@@ -62,7 +72,8 @@ function Register() {
   };
 
   const handleValidation = () => {
-    const { password, confirmPassword, username, email, firstName, lastName } = values;
+    const { password, confirmPassword, username, email, firstName, lastName } =
+      values;
     if (password !== confirmPassword) {
       toast.error("PW & CF should be da same", toastStyle);
       return false;
@@ -85,58 +96,67 @@ function Register() {
   return (
     <>
       <FormContainer>
-        <form onSubmit={(event) => handleSubmit(event)}>
-          <div className="brand">
-            <img src={Logo} alt="" />
-            <h1>TeamsCLONE</h1>
-          </div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <form onSubmit={(event) => handleSubmit(event)}>
+            {/* <div className="brand">
+              <img src={Logo} alt="" />
+              <h1>TeamsCLONE</h1>
+            </div> */}
 
-          <input
-            type="text"
-            placeholder="UserName"
-            name="username"
-            onChange={(e) => handleChange(e)}
-          />
-              <input
-            type="text"
-            placeholder="First Name"
-            name="firstName"
-            onChange={(e) => handleChange(e)}
-          />
-              <input
-            type="text"
-            placeholder="Last Name"
-            name="lastName"
-            onChange={(e) => handleChange(e)}
-          />
+            <TeamsLogo/>
 
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            onChange={(e) => handleChange(e)}
-          />
+            <CustomInput
+              placeholder="UserName"
+              name="username"
+              onChange={(e) => handleChange(e)}
+            />
 
-          <input
-            type="password"
-            placeholder="password"
-            name="password"
-            onChange={(e) => handleChange(e)}
-          />
+            <CustomInput
+              placeholder="First Name"
+              name="firstName"
+              onChange={(e) => handleChange(e)}
+            />
+            <CustomInput
+              placeholder="Last Name"
+              name="lastName"
+              onChange={(e) => handleChange(e)}
+            />
 
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            onChange={(e) => handleChange(e)}
-          />
+            <CustomInput
+              placeholder="Email"
+              name="email"
+              onChange={(e) => handleChange(e)}
+            />
 
-          <button type="submit">Create User</button>
+            <CustomInput
+              type="password"
+              placeholder="password"
+              name="password"
+              onChange={(e) => handleChange(e)}
+            />
 
-          <span>
-            Already have an account ?? <Link to="/login">Login</Link>
-          </span>
-        </form>
+            <CustomInput
+              type="password"
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              onChange={(e) => handleChange(e)}
+            />
+
+            <button type="submit">Create User</button>
+
+            <Typography textTransform={"uppercase"} textDecoration="none">
+              Already have an account ??{" "}
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", fontWeight: "bold" }}
+              >
+                Login
+              </Link>
+            </Typography>
+          </form>
+        )}
       </FormContainer>
       <ToastContainer />
     </>
@@ -152,19 +172,6 @@ const FormContainer = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: #5558ae;
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-content: center;
-    img {
-      height: 5rem;
-    }
-    h1 {
-      color: black;
-      text-transform: uppercase;
-    }
-  }
   form {
     display: flex;
     flex-direction: column;

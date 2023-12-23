@@ -15,8 +15,14 @@ export default function Chat() {
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
-
   const [isLoaded, setIsLoaded] = useState(false);
+  const [currentSelected, setCurrentSelected] = useState(undefined);
+  const [loading, setLoading] = useState(false);
+
+  const handleChatChange = (chat) => {
+    setCurrentChat(chat);
+  };
+
   const getAllContacts = async () => {
     try {
       if (currentUser) {
@@ -53,12 +59,6 @@ export default function Chat() {
     getAllContacts();
   }, [currentUser]);
 
-  const handleChatChange = (chat) => {
-    setCurrentChat(chat);
-  };
-
-  const [currentSelected, setCurrentSelected] = useState(undefined);
-
   return (
     <>
       <Box
@@ -68,7 +68,7 @@ export default function Chat() {
         // flexDirection={"column"}
         alignItems={"center"}
         justifyContent={"center"}
-        gap={"1rem"}
+        // gap={"1rem"}
         backgroundColor="black"
       >
         <Box backgroundColor="#F5F5F5">
@@ -98,6 +98,8 @@ export default function Chat() {
               <Welcome currentUser={currentUser} />
             ) : (
               <ChatContainer
+              loading={loading}
+              setLoading={setLoading}
                 currentChat={currentChat}
                 currentUser={currentUser}
                 socket={socket}

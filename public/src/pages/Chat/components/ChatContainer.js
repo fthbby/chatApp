@@ -2,15 +2,16 @@ import styled from "styled-components";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Avatar, Box, Divider, Typography } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 import OtherUserHeader from "./OtherUserHeader";
 import { getAllMessageRoute, sendMessageRoute } from "../../../api/routes";
 import ChatInput from "./ChatInput";
+import Loading from "../../../components/Loading";
 
 export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   const scrollRef = useRef();
 
   const handleSendMessage = async (msg) => {
@@ -55,13 +56,13 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
 
   const getAllMessages = async () => {
     if (currentChat) {
+      setLoading(true);
       let res = await axios.post(getAllMessageRoute, {
         from: currentUser._id,
         to: currentChat._id,
       });
-
       setMessages(res.data);
-      console.log("dataaa :", res.data);
+      setLoading(false);
     }
   };
 
@@ -80,40 +81,58 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
         boxShadow={"0px 0px 8px rgba(0, 0, 0, 0.2)"}
       >
         <OtherUserHeader currentChat={currentChat} />
-        <Box
-          padding={"2rem 2rem"}
-          display="flex"
-          flexDirection={"column"}
-          gap={"1rem"}
-          overflow={"auto"}
-        >
-          {messages.map((message, index) => {
-            return (
-              <Box
-                ref={scrollRef}
-                key={uuidv4}
-                display={!message.fromSelf && "flex"}
-                flexDirection={!message.fromSelf && "row"}
-                alignItems={"center"}
-              >
-                {!message.fromSelf && <Avatar sx={{ marginRight: 2 }} />}
-                <Box style={message.fromSelf ? styles.sended : styles.received}>
+
+        {loading ? (
+          <Box
+            height={"100%"}
+            width={"100%"}
+            display="flex"
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <Loading />
+          </Box>
+        ) : (
+          <Box
+            padding={"2rem 2rem"}
+            display="flex"
+            flexDirection={"column"}
+            gap={"1rem"}
+            overflow={"auto"}
+          >
+            {messages.map((message, index) => {
+              return (
+                <Box
+                  ref={scrollRef}
+                  key={uuidv4}
+                  display={!message.fromSelf && "flex"}
+                  flexDirection={!message.fromSelf && "row"}
+                  alignItems={"center"}
+                >
+                  {!message.fromSelf && <Avatar sx={{ marginRight: 2 }} />}
                   <Box
-                    style={
-                      message.fromSelf
-                        ? styles.sentBubble
-                        : styles.receivedBubble
-                    }
-                    padding={1}
+                    style={message.fromSelf ? styles.sended : styles.received}
                   >
-                    {!message.fromSelf ? currentChat.username + "11/2" : "11/2"}
-                    <Box pt={0.5}>{message.message}</Box>
+                    <Box
+                      style={
+                        message.fromSelf
+                          ? styles.sentBubble
+                          : styles.receivedBubble
+                      }
+                      padding={1}
+                    >
+                      {!message.fromSelf
+                        ? currentChat.username + "11/2"
+                        : "11/2"}
+                      <Box pt={0.5}>{message.message}</Box>
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            );
-          })}
-        </Box>
+              );
+            })}
+          </Box>
+        )}
+
         <ChatInput handleSendMessage={handleSendMessage} />
       </Box>
     </>

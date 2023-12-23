@@ -7,6 +7,7 @@ import OtherUserHeader from "./OtherUserHeader";
 import { getAllMessageRoute, sendMessageRoute } from "../../../api/routes";
 import ChatInput from "./ChatInput";
 import Loading from "../../../components/Loading";
+import dayjs from "dayjs";
 
 export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
@@ -14,6 +15,9 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef();
 
+  const formatDate = (message) => {
+    return message.createdAt.toLocaleString();
+  };
   const handleSendMessage = async (msg) => {
     try {
       let res = await axios.post(sendMessageRoute, {
@@ -60,12 +64,15 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
       let res = await axios.post(getAllMessageRoute, {
         from: currentUser._id,
         to: currentChat._id,
+        createdAt: currentChat.createdAt,
       });
+
       setMessages(res.data);
       setLoading(false);
     }
   };
 
+  console.log("messages :", messages);
   useEffect(() => {
     if (currentChat) {
       getAllMessages();
@@ -123,7 +130,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
                     >
                       {!message.fromSelf
                         ? currentChat.username + "11/2"
-                        : "11/2"}
+                        : formatDate(message)}
                       <Box pt={0.5}>{message.message}</Box>
                     </Box>
                   </Box>

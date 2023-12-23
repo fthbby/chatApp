@@ -98,8 +98,8 @@ export default function Chat() {
               <Welcome currentUser={currentUser} />
             ) : (
               <ChatContainer
-              loading={loading}
-              setLoading={setLoading}
+                loading={loading}
+                setLoading={setLoading}
                 currentChat={currentChat}
                 currentUser={currentUser}
                 socket={socket}

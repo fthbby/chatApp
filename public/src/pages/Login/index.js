@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../assets/TeamsLogo.png";
+import Logo from "../../assets/TeamsLogo.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { loginRoute } from "../api/routes";
-import Loading from "../components/Loading";
+import { loginRoute } from "../../api/routes";
+import Loading from "../../components/Loading";
+import { Box, FormControl, Typography } from "@mui/material";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,7 +16,6 @@ function Login() {
     email: "",
     password: "",
   });
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -41,8 +41,8 @@ function Login() {
       const { data } = await axios.post(loginRoute, { email, password });
 
       if (data.status === false) {
-        toast.error(data.msg, toastStyle);
         setLoading(false);
+        toast.error(data.msg, toastStyle);
       }
       if (data.status === true) {
         setLoading(false);
@@ -71,11 +71,28 @@ function Login() {
         {loading ? (
           <Loading />
         ) : (
-          <form onSubmit={(event) => handleSubmit(event)}>
-            <div className="brand">
-              <img src={Logo} alt="" />
-              <h1>TeamsCLONE</h1>
-            </div>
+          <FormControl
+            onSubmit={(event) => handleSubmit(event)}
+            display="flex"
+            flexDirection="column"
+            gap={"2rem"}
+            padding={"3rem 5rem"}
+            backgroundColor='#f0f0f0'
+            sx={{borderRadius:'2rem'}}
+     
+          >
+            <Box
+              className="brand"
+              display="flex"
+              alignItems={"center"}
+              gap={"1rem"}
+              justifyContent={"center"}
+            >
+              <Box component="img" height={"5rem"} src={Logo} alt="" />
+              <Typography variant="h1" textTransform={"uppercase"}>
+                TeamsCLONE
+              </Typography>
+            </Box>
 
             <input
               type="text"
@@ -97,7 +114,7 @@ function Login() {
             <span>
               Don't have an account?? <Link to="/register">Register</Link>
             </span>
-          </form>
+          </FormControl>
         )}
       </FormContainer>
       <ToastContainer />

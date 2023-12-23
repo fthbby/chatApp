@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../assets/TeamsLogo.png";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import { CircularProgress, Box, FormControl, Input } from "@mui/material";
+
+import Logo from "../assets/TeamsLogo.png";
 import { loginRoute } from "../api/routes";
 import Loading from "../components/Loading";
+import CustomInput from "../components/inputs/CustomInput";
 
 function Login() {
   const navigate = useNavigate();
@@ -77,23 +80,20 @@ function Login() {
               <h1>TeamsCLONE</h1>
             </div>
 
-            <input
-              type="text"
-              placeholder="email"
+            <CustomInput
               name="email"
-              min="3"
+              placeholder="email"
               onChange={(e) => handleChange(e)}
             />
 
-            <input
-              type="password"
-              placeholder="password"
+            <CustomInput
+              type={"password"}
               name="password"
+              placeholder="password"
               onChange={(e) => handleChange(e)}
             />
-
+      
             <button type="submit">Login</button>
-
             <span>
               Don't have an account?? <Link to="/register">Register</Link>
             </span>
@@ -134,6 +134,7 @@ const FormContainer = styled.div`
     background-color: #f0f0f0;
     border-radius: 2rem;
     padding: 3rem 5rem;
+
     input {
       background-color: transparent;
       padding: 1rem;
@@ -145,6 +146,7 @@ const FormContainer = styled.div`
         ${"" /* outline:none */}
       }
     }
+
     button {
       background-color: #5558ae;
       height: 50px;

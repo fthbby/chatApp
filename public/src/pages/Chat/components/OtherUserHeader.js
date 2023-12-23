@@ -13,10 +13,10 @@ function OtherUserHeader({ currentChat }) {
       <Typography fontWeight={600}>
         {currentChat?.firstName ? (
           <Box>
-            {currentChat.firstName} {currentChat.lastName}
+            {currentChat?.firstName} {currentChat?.lastName}
           </Box>
         ) : (
-          currentChat.username
+          currentChat?.username
         )}
       </Typography>
     </Box>

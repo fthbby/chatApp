@@ -8,6 +8,7 @@ import Welcome from "../../components/Welcome";
 import ChatContainer from "./components/ChatContainer";
 import Header from "./components/Header";
 import Contacts from "../Chat/components/Contacts";
+import CustomLayout from "../../layouts/CustomLayout";
 
 export default function Chat() {
   const socket = useRef();
@@ -60,7 +61,7 @@ export default function Chat() {
   }, [currentUser]);
 
   return (
-    <>
+    <CustomLayout>
       <Box
         height={"100vh"}
         width={"100vw"}
@@ -108,7 +109,7 @@ export default function Chat() {
           </Box>
         </Box>
       </Box>
-    </>
+    </CustomLayout>
   );
 }
 

@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { Input, Box, InputAdornment, IconButton } from "@mui/material";
+import {
+  Input,
+  Box,
+  InputAdornment,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const CustomInput = ({
+const PasswordInput = ({
   onChange,
   placeholder,
   name,
   type = "text",
+  handleClickPassword,
+  showPassword,
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -29,10 +37,10 @@ const CustomInput = ({
         // padding:'1rem'
       }}
     >
-      <Input
+      <TextField
         placeholder={placeholder}
         name={name}
-        type={type}
+        type={showPassword ? "text" : "password"}
         onChange={onChange}
         disableUnderline
         onFocus={handleFocus}
@@ -41,10 +49,24 @@ const CustomInput = ({
           backgroundColor: "transparent",
           width: "100%",
         }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickPassword}
+                edge="end"
+                size="large"
+              >
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
         {...props}
       />
     </Box>
   );
 };
 
-export default CustomInput;
+export default PasswordInput;

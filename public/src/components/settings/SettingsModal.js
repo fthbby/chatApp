@@ -23,7 +23,10 @@ function SettingsModal({ open, onClose }) {
           <Typography id="modal-modal-title" variant="h6">
             Settings
           </Typography>
-          <CloseIcon onClick={onClose} sx={{ cursor: "pointer", color:'gray' }} />
+          <CloseIcon
+            onClick={onClose}
+            sx={{ cursor: "pointer", color: "gray" }}
+          />
         </Box>
 
         <Grid container mt={2}>
@@ -33,11 +36,11 @@ function SettingsModal({ open, onClose }) {
                 display={"flex"}
                 alignItems={"center"}
                 onClick={() => setIsActive(x.title)}
-                backgroundColor={x.title == isActive ? '#EBEBEB' : ''}
+                backgroundColor={x.title == isActive ? "#EBEBEB" : ""}
                 sx={{
                   padding: 1,
                   cursor: "pointer",
-                  borderRadius:1,
+                  borderRadius: 1,
                   transition: " background 0.3s ease-in-out",
                   "&:hover": {
                     background: "#EBEBEB",
@@ -49,9 +52,13 @@ function SettingsModal({ open, onClose }) {
             ))}
           </Grid>
 
-          <Grid item md={1} />
-          <Grid item xs={7} md={7}>
-            {isActive == "General" && <><GeneralSection/></>}
+          <Grid item md={0.5} xs={0.5} />
+          <Grid item md={7} xs={7}>
+            {isActive == "General" && (
+              <>
+                <GeneralSection />
+              </>
+            )}
 
             {isActive == "Accounts" && <>Accounts</>}
           </Grid>
@@ -67,7 +74,7 @@ const styles = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   minWidth: 600,
-  minHeight:600,
+  minHeight: 600,
   boxShadow: 24,
   p: 4,
 };

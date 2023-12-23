@@ -7,11 +7,20 @@ import { ToastContainer, toast } from "react-toastify";
 import { loginRoute } from "../../api/routes";
 import Loading from "../../components/Loading";
 import CustomInput from "../../components/inputs/CustomInput";
-import { Button, Typography } from "@mui/material";
+import { Button, InputAdornment, Typography, IconButton } from "@mui/material";
 import TeamsLogo from "../../components/TeamsLogo";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import PasswordInput from "../../components/inputs/PasswordInput";
 
 function Login() {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const [values, setValues] = useState({
     // username: "",
     email: "",
@@ -19,12 +28,6 @@ function Login() {
   });
 
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem("chat-app-user")) {
-      navigate("/");
-    }
-  }, []);
 
   const toastStyle = {
     position: "bottom-right",
@@ -82,11 +85,19 @@ function Login() {
               onChange={(e) => handleChange(e)}
             />
 
-            <CustomInput
+            {/* <CustomInput
               type={"password"}
               name="password"
               placeholder="password"
               onChange={(e) => handleChange(e)}
+            /> */}
+            <PasswordInput
+              type={"password"}
+              name="password"
+              placeholder="password"
+              onChange={(e) => handleChange(e)}
+              handleClickPassword={handleClickPassword}
+              showPassword={showPassword}
             />
 
             <button type="submit">Login</button>

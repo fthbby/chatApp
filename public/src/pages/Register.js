@@ -10,6 +10,7 @@ import CustomInput from "../components/inputs/CustomInput";
 import Loading from "../components/Loading";
 import { Typography } from "@mui/material";
 import TeamsLogo from "../components/TeamsLogo";
+import CustomLayout from "../layouts/CustomLayout";
 
 function Register() {
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ function Register() {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   return (
-    <>
+    <CustomLayout>
       <FormContainer>
         {loading ? (
           <Loading />
@@ -159,7 +160,7 @@ function Register() {
         )}
       </FormContainer>
       <ToastContainer />
-    </>
+    </CustomLayout>
   );
 }
 

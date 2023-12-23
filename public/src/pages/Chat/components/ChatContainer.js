@@ -75,7 +75,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
     <>
       <Box
         display={"grid"}
-        gridTemplateRows={"5% 80% 15%"}
+        gridTemplateRows={"10% 75% 15%"}
         overflow={"hidden"}
         boxShadow={"0px 0px 8px rgba(0, 0, 0, 0.2)"}
       >

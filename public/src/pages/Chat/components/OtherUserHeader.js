@@ -10,16 +10,15 @@ function OtherUserHeader({ currentChat }) {
       borderBottom={"1px solid #ABAAAA"}
     >
       <Avatar sx={{ mr: 2 }} />
-      <Typography fontWeight={600}>{currentChat?.username}</Typography>
-      {/* <div className="user-details">
-      <div className="avatar">
-        <img src={avatar} alt="" />
-      </div>
-      <div className="username">
-        <h3>{currentChat?.username}</h3>
-      </div>
-    </div>
-    <Logout /> */}
+      <Typography fontWeight={600}>
+        {currentChat?.firstName ? (
+          <Box>
+            {currentChat.firstName} {currentChat.lastName}
+          </Box>
+        ) : (
+          currentChat.username
+        )}
+      </Typography>
     </Box>
   );
 }

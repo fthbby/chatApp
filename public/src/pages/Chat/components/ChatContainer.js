@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
+import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 import { Avatar, Box } from "@mui/material";
 import OtherUserHeader from "./OtherUserHeader";
 import { getAllMessageRoute, sendMessageRoute } from "../../../api/routes";
 import ChatInput from "./ChatInput";
 import Loading from "../../../components/Loading";
-import dayjs from "dayjs";
 
 export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
@@ -16,7 +16,7 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
   const scrollRef = useRef();
 
   const formatDate = (message) => {
-    return message.createdAt.toLocaleString();
+    return dayjs(message).format("MM/DD/YYYY hh:mma");
   };
   const handleSendMessage = async (msg) => {
     try {
@@ -129,8 +129,8 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
                       padding={1}
                     >
                       {!message.fromSelf
-                        ? currentChat.username + "11/2"
-                        : formatDate(message)}
+                        ? currentChat.username + formatDate(message.createdAt)
+                        : formatDate(message.createdAt)}
                       <Box pt={0.5}>{message.message}</Box>
                     </Box>
                   </Box>

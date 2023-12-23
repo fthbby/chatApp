@@ -76,6 +76,8 @@ const getAllUsers = async (req, res, next) => {
       "username",
       "avatarImage",
       "_id",
+      "firstName",
+      "lastName"
     ]);
 
     return res.json(users);

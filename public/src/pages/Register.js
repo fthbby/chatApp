@@ -11,6 +11,7 @@ import Loading from "../components/Loading";
 import { Typography } from "@mui/material";
 import TeamsLogo from "../components/TeamsLogo";
 import CustomLayout from "../layouts/CustomLayout";
+import PurpleButton from "../components/buttons/PurpleButton";
 
 function Register() {
   const navigate = useNavigate();
@@ -106,7 +107,7 @@ function Register() {
               <h1>TeamsCLONE</h1>
             </div> */}
 
-            <TeamsLogo/>
+            <TeamsLogo />
 
             <CustomInput
               placeholder="UserName"
@@ -145,7 +146,7 @@ function Register() {
               onChange={(e) => handleChange(e)}
             />
 
-            <button type="submit">Create User</button>
+            <PurpleButton onClick={handleSubmit} text="Create user" />
 
             <Typography textTransform={"uppercase"} textDecoration="none">
               Already have an account ??{" "}

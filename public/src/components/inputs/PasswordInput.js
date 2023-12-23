@@ -53,7 +53,6 @@ const PasswordInput = ({
           endAdornment: (
             <InputAdornment position="end">
               <IconButton
-                aria-label="toggle password visibility"
                 onClick={handleClickPassword}
                 edge="end"
                 size="large"

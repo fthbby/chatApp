@@ -12,6 +12,7 @@ import TeamsLogo from "../../components/TeamsLogo";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import PasswordInput from "../../components/inputs/PasswordInput";
+import PurpleButton from "../../components/buttons/PurpleButton";
 
 function Login() {
   const navigate = useNavigate();
@@ -85,12 +86,6 @@ function Login() {
               onChange={(e) => handleChange(e)}
             />
 
-            {/* <CustomInput
-              type={"password"}
-              name="password"
-              placeholder="password"
-              onChange={(e) => handleChange(e)}
-            /> */}
             <PasswordInput
               type={"password"}
               name="password"
@@ -99,8 +94,8 @@ function Login() {
               handleClickPassword={handleClickPassword}
               showPassword={showPassword}
             />
+            <PurpleButton onClick={handleSubmit} text="Login" />
 
-            <button type="submit">Login</button>
             <Typography textTransform={"uppercase"} textDecoration="none">
               Don't have an account??{" "}
               <Link
@@ -140,7 +135,8 @@ const FormContainer = styled.div`
       padding: 1rem;
     }
 
-    button {
+    ${
+      "" /* button {
       background-color: #5558ae;
       height: 50px;
       border-radius: 0.4rem;
@@ -151,6 +147,7 @@ const FormContainer = styled.div`
       &: hover {
         background-color: black;
       }
+    } */
     }
   }
 `;

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../assets/TeamsLogo.png";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import Logo from "../../assets/TeamsLogo.png";
 import { loginRoute } from "../../api/routes";
 import Loading from "../../components/Loading";
-import { Box, FormControl, Typography } from "@mui/material";
+import CustomInput from "../../components/inputs/CustomInput";
+import { Button, Typography } from "@mui/material";
 
 function Login() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function Login() {
     email: "",
     password: "",
   });
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -41,8 +43,8 @@ function Login() {
       const { data } = await axios.post(loginRoute, { email, password });
 
       if (data.status === false) {
-        setLoading(false);
         toast.error(data.msg, toastStyle);
+        setLoading(false);
       }
       if (data.status === true) {
         setLoading(false);
@@ -71,50 +73,36 @@ function Login() {
         {loading ? (
           <Loading />
         ) : (
-          <FormControl
-            onSubmit={(event) => handleSubmit(event)}
-            display="flex"
-            flexDirection="column"
-            gap={"2rem"}
-            padding={"3rem 5rem"}
-            backgroundColor='#f0f0f0'
-            sx={{borderRadius:'2rem'}}
-     
-          >
-            <Box
-              className="brand"
-              display="flex"
-              alignItems={"center"}
-              gap={"1rem"}
-              justifyContent={"center"}
-            >
-              <Box component="img" height={"5rem"} src={Logo} alt="" />
-              <Typography variant="h1" textTransform={"uppercase"}>
-                TeamsCLONE
-              </Typography>
-            </Box>
+          <form onSubmit={(event) => handleSubmit(event)}>
+            <div className="brand">
+              <img src={Logo} alt="" />
+              <h1>TeamsCLONE</h1>
+            </div>
 
-            <input
-              type="text"
-              placeholder="email"
+            <CustomInput
               name="email"
-              min="3"
+              placeholder="email"
               onChange={(e) => handleChange(e)}
             />
 
-            <input
-              type="password"
-              placeholder="password"
+            <CustomInput
+              type={"password"}
               name="password"
+              placeholder="password"
               onChange={(e) => handleChange(e)}
             />
 
             <button type="submit">Login</button>
-
-            <span>
-              Don't have an account?? <Link to="/register">Register</Link>
-            </span>
-          </FormControl>
+            <Typography textTransform={"uppercase"} textDecoration="none">
+              Don't have an account??{" "}
+              <Link
+                to="/register"
+                style={{ textDecoration: "none", fontWeight: "bold" }}
+              >
+                Register
+              </Link>
+            </Typography>
+          </form>
         )}
       </FormContainer>
       <ToastContainer />
@@ -151,17 +139,11 @@ const FormContainer = styled.div`
     background-color: #f0f0f0;
     border-radius: 2rem;
     padding: 3rem 5rem;
-    input {
-      background-color: transparent;
-      padding: 1rem;
-      border: 0.1rem solid #5558ae;
-      border-radius: 0.4rem;
 
-      &:focus: {
-        border: 1 rem solid red;
-        ${"" /* outline:none */}
-      }
+    input {
+      padding: 1rem;
     }
+
     button {
       background-color: #5558ae;
       height: 50px;
@@ -172,15 +154,6 @@ const FormContainer = styled.div`
       transition: 0.5s ease-in-out;
       &: hover {
         background-color: black;
-      }
-    }
-    span {
-      color: black;
-      text-transform: uppercase;
-      a {
-        color: #5558ae;
-        text-decoration: none;
-        font-weight: bold;
       }
     }
   }

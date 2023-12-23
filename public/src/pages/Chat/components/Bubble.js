@@ -1,52 +1,39 @@
-import React from 'react'
-import { Avatar, Box } from "@mui/material";
+import React from "react";
+import { Box, Typography } from "@mui/material";
 
-function Bubble({message, currentChat, formatDate}) {
+function Bubble({ message, currentChat, formatDate }) {
   return (
     <Box
-    style={
-      message.fromSelf
-        ? styles.sentBubble
-        : styles.receivedBubble
-    }
-    padding={1}
-  >
-    {!message.fromSelf
-      ? currentChat.username + formatDate(message.createdAt)
-      : formatDate(message.createdAt)}
-    <Box
-      pt={0.5}
-      flexWrap={"wrap"}
-      backgroundColor="red"
-      sx={{ wordWrap: "break-word" }}
+      style={message.fromSelf ? styles.sentBubble : styles.receivedBubble}
+      padding={1}
+      width={message.fromSelf ? "100%" : "51%"}
     >
-      {message.message}
+      <Box>
+        {!message.fromSelf
+          ? currentChat.username + formatDate(message.createdAt)
+          : formatDate(message.createdAt)}
+        <Typography
+          pt={0.5}
+          flexWrap={"wrap"}
+          style={{ wordWrap: "break-word" }}
+        >
+          {message.message}
+        </Typography>
+      </Box>
     </Box>
-  </Box>  )
+  );
 }
 
-export default Bubble
-
+export default Bubble;
 
 const styles = {
-    sended: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-end",
-    },
-    received: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-start",
-    },
-  
-    sentBubble: {
-      borderRadius: 5,
-      backgroundColor: "#e5e5f1",
-    },
-  
-    receivedBubble: {
-      borderRadius: 5,
-      backgroundColor: "white",
-    },
-  };
+  sentBubble: {
+    borderRadius: 5,
+    backgroundColor: "#e5e5f1",
+  },
+
+  receivedBubble: {
+    borderRadius: 5,
+    backgroundColor: "white",
+  },
+};

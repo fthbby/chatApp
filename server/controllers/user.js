@@ -3,9 +3,7 @@ const bcrypt = require("bcrypt");
 
 const register = async (req, res, next) => {
   try {
-    console.log("hello", req.body);
-
-    const { username, email, password } = req.body;
+    const { username, email, password, firstName, lastName } = req.body;
 
     const usernameCheck = await User.findOne({ username });
 
@@ -22,6 +20,8 @@ const register = async (req, res, next) => {
     const user = await User.create({
       email,
       username,
+      firstName,
+      lastName,
       password: hashedPassword,
     });
 
@@ -35,14 +35,14 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     console.log("LOGIN ", req.body);
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.json({ msg: "incorrect username or password", status: false });
+      return res.json({ msg: "incorrect email or password", status: false });
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.json({ msg: "incorrect username or password", status: false });
+      return res.json({ msg: "incorrect email or password", status: false });
     }
     delete user.password;
     return res.json({ status: true, user });
@@ -78,7 +78,7 @@ const getAllUsers = async (req, res, next) => {
       "_id",
     ]);
 
-    return res.json(users)
+    return res.json(users);
   } catch (err) {
     console.log("err :", err);
     next(err);

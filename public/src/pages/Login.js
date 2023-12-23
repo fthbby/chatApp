@@ -4,15 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/TeamsLogo.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios'
+import axios from "axios";
 import { loginRoute } from "../api/routes";
 
-
 function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [values, setValues] = useState({
-    username: "",
-    // email: "",
+    // username: "",
+    email: "",
     password: "",
   });
 
@@ -20,11 +19,11 @@ function Login() {
     console.log("VALUES :", values);
   }, [values]);
 
-  useEffect(()=>{
-    if (localStorage.getItem('chat-app-user')){
-      navigate('/')
+  useEffect(() => {
+    if (localStorage.getItem("chat-app-user")) {
+      navigate("/");
     }
-  },[])
+  }, []);
 
   const toastStyle = {
     position: "bottom-right",
@@ -33,33 +32,27 @@ function Login() {
     theme: "light",
   };
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if(handleValidation()){
-      console.log('in validation', loginRoute)
-      const { password, username,  } = values;
+    if (handleValidation()) {
+      console.log("in validation", loginRoute);
+      const { password, email } = values;
 
-      const {data} = await axios.post(loginRoute,
-        {username,
-        password}
-)
+      const { data } = await axios.post(loginRoute, { email, password });
 
-        if (data.status === false ){
-          toast.error(data.msg, toastStyle)
-        }
-        if (data.status === true){
-          localStorage.setItem('chat-app-user', JSON.stringify(data.user))
-          navigate('/')
-
-        }
-
-    };
-
+      if (data.status === false) {
+        toast.error(data.msg, toastStyle);
+      }
+      if (data.status === true) {
+        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+        navigate("/");
+      }
+    }
   };
 
   const handleValidation = () => {
     const { password, username, email } = values;
-   if (username.length==='' || password.length === '') {
+    if (email.length === "" || password.length === "") {
       toast.error("Email & PW is required", toastStyle);
       return false;
     }
@@ -80,21 +73,18 @@ function Login() {
 
           <input
             type="text"
-            placeholder="UserName"
-            name="username" 
-            min='3'
+            placeholder="email"
+            name="email"
+            min="3"
             onChange={(e) => handleChange(e)}
           />
 
-   
           <input
             type="password"
             placeholder="password"
             name="password"
             onChange={(e) => handleChange(e)}
           />
-
-
 
           <button type="submit">Login</button>
 

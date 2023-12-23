@@ -8,6 +8,7 @@ import OtherUserHeader from "./OtherUserHeader";
 import { getAllMessageRoute, sendMessageRoute } from "../../../api/routes";
 import ChatInput from "./ChatInput";
 import Loading from "../../../components/Loading";
+import Bubble from "./Bubble";
 
 export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
@@ -120,19 +121,11 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
                   <Box
                     style={message.fromSelf ? styles.sended : styles.received}
                   >
-                    <Box
-                      style={
-                        message.fromSelf
-                          ? styles.sentBubble
-                          : styles.receivedBubble
-                      }
-                      padding={1}
-                    >
-                      {!message.fromSelf
-                        ? currentChat.username + formatDate(message.createdAt)
-                        : formatDate(message.createdAt)}
-                      <Box pt={0.5}>{message.message}</Box>
-                    </Box>
+                    <Bubble
+                      message={message}
+                      currentChat={currentChat}
+                      formatDate={formatDate}
+                    />
                   </Box>
                 </Box>
               );

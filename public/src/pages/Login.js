@@ -4,12 +4,11 @@ import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { CircularProgress, Box, FormControl, Input } from "@mui/material";
-
 import Logo from "../assets/TeamsLogo.png";
 import { loginRoute } from "../api/routes";
 import Loading from "../components/Loading";
 import CustomInput from "../components/inputs/CustomInput";
+import { Button, Typography } from "@mui/material";
 
 function Login() {
   const navigate = useNavigate();
@@ -92,11 +91,17 @@ function Login() {
               placeholder="password"
               onChange={(e) => handleChange(e)}
             />
-      
+
             <button type="submit">Login</button>
-            <span>
-              Don't have an account?? <Link to="/register">Register</Link>
-            </span>
+            <Typography textTransform={"uppercase"} textDecoration="none">
+              Don't have an account??{" "}
+              <Link
+                to="/register"
+                style={{ textDecoration: "none", fontWeight: "bold" }}
+              >
+                Register
+              </Link>
+            </Typography>
           </form>
         )}
       </FormContainer>
@@ -136,15 +141,7 @@ const FormContainer = styled.div`
     padding: 3rem 5rem;
 
     input {
-      background-color: transparent;
       padding: 1rem;
-      border: 0.1rem solid #5558ae;
-      border-radius: 0.4rem;
-
-      &:focus: {
-        border: 1 rem solid red;
-        ${"" /* outline:none */}
-      }
     }
 
     button {
@@ -157,15 +154,6 @@ const FormContainer = styled.div`
       transition: 0.5s ease-in-out;
       &: hover {
         background-color: black;
-      }
-    }
-    span {
-      color: black;
-      text-transform: uppercase;
-      a {
-        color: #5558ae;
-        text-decoration: none;
-        font-weight: bold;
       }
     }
   }

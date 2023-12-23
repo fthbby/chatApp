@@ -19,6 +19,10 @@ function UserInfo({ user, setManage }) {
         />
         <Box>
           <Typography fontWeight={600}>{user.username}</Typography>
+          <Typography>
+            {user.firstName} {user.lastName}
+          </Typography>
+
           <Typography>{user.email}</Typography>
         </Box>
       </Box>
@@ -28,7 +32,7 @@ function UserInfo({ user, setManage }) {
         <GreyButton text="Sign Out" />
       </Box>
 
-      <PhotoModal open={open} onClose={()=>setOpen(false)} />
+      <PhotoModal open={open} onClose={() => setOpen(false)} />
     </Box>
   );
 }

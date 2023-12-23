@@ -9,6 +9,8 @@ function ManageAcc({ user, setManage }) {
       <CustomTextField title="Username" placeholder={user.username} />
 
       <CustomTextField title="Email" placeholder={user.email} />
+      <CustomTextField title="First Name" placeholder={user.firstName} />
+      <CustomTextField title="Last Name" placeholder={user.lastName} />
 
       <Box pt={5} display={"flex"} justifyContent={"flex-end"}>
         <GreyButton text="Save" mr={3} />

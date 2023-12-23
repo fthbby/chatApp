@@ -31,7 +31,10 @@ export default function Contacts({
   return (
     <>
       {/* {currentUserName && ( */}
-      <Box backgroundColor="#fefefc">
+      <Box
+        backgroundColor="#fefefc"
+        // boxShadow={"0px 2px 5px rgba(0, 0, 0, 0.1)"}
+      >
         <Box
           padding={2}
           fontWeight={600}
@@ -47,7 +50,7 @@ export default function Contacts({
               onClick={() => setRecent(true)}
               color={recent ? "#C2C1D6" : "black"}
               borderBottom={recent ? "2px solid #C2C1D6 " : "none"}
-              sx={{ cursor: "pointer", pb: .5 }}
+              sx={{ cursor: "pointer", pb: 0.5 }}
             >
               Recent
             </Typography>
@@ -57,20 +60,14 @@ export default function Contacts({
               onClick={() => setRecent(false)}
               color={recent ? "black" : "#C2C1D6"}
               borderBottom={recent ? "none" : "2px solid #C2C1D6"}
-              sx={{ cursor: "pointer", pb: .5 }}
+              sx={{ cursor: "pointer", pb: 0.5 }}
             >
               Contacts
             </Typography>
           </Box>
         </Box>
 
-        <Box
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"center"}
-          // overflow={"auto"}
-          // gap={"0.8rem"}
-        >
+        <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
           {recent ? (
             ""
           ) : (
@@ -86,16 +83,7 @@ export default function Contacts({
             </>
           )}
         </Box>
-        {/* <div className="current-user">
-            <div className="avatar">
-              <img src={avatar} />
-            </div>
-            <div className="username">
-              <h2>{currentUser.username}</h2>
-            </div>
-          </div> */}
       </Box>
-      {/* )} */}
     </>
   );
 }

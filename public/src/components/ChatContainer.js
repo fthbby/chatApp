@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Avatar, Box, Divider, Typography } from "@mui/material";
 import OtherUserHeader from "../pages/Chat/components/OtherUserHeader";
 import { getAllMessageRoute, sendMessageRoute } from "../api/routes";
-import ChatInput from "./ChatInput";
+import ChatInput from "../pages/Chat/components/ChatInput";
 
 export default function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);
@@ -73,7 +73,12 @@ export default function ChatContainer({ currentChat, currentUser, socket }) {
 
   return (
     <>
-      <Box display={"grid"} gridTemplateRows={"10% 75% 15%"} overflow={'hidden'}>
+      <Box
+        display={"grid"}
+        gridTemplateRows={"10% 75% 15%"}
+        overflow={"hidden"}
+        boxShadow={"0px 0px 8px rgba(0, 0, 0, 0.2)"}
+      >
         <OtherUserHeader currentChat={currentChat} />
         <Box
           padding={"2rem 2rem"}
@@ -139,13 +144,17 @@ const styles = {
 };
 
 const Container = styled.div`
-  ${'' /* display: grid;
+  ${
+    "" /* display: grid;
   grid-template-rows: 0% 90% 10%;
   gap: 0.1rem;
-  overflow: hidden; */}
-  ${'' /* @media screen and (min-width: 720px) and (max-width: 1080px) {
+  overflow: hidden; */
+  }
+  ${
+    "" /* @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 0% 85% 15%;
-  } */}
+  } */
+  }
 
   .content {
     max-width: 40%;
